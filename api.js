@@ -50,30 +50,45 @@ const API = (function () {
       return true;
     },
 
-    // --- AUTH (Supabase Auth) ---
+    // --- Password hashing (SHA-256 via Web Crypto) ---
+    async _hashPassword(password) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password + '_sohantech_salt_2026');
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    },
+
+    // --- AUTH (Direct Database — no email confirmation needed) ---
     async register(name, email, phone, password, address = '', city = 'Dhaka') {
-      const { data, error } = await _supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { name, phone, city, address } }
+      // Check if email already exists
+      const { data: existing } = await _supabase.from('users').select('id').eq('email', email).limit(1);
+      if (existing && existing.length > 0) throw new Error('An account with this email already exists.');
+
+      // Check if phone already exists
+      if (phone) {
+        const { data: phoneExists } = await _supabase.from('users').select('id').eq('phone', phone).limit(1);
+        if (phoneExists && phoneExists.length > 0) throw new Error('An account with this phone number already exists.');
+      }
+
+      const hashedPw = await this._hashPassword(password);
+      const token = 'tok_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+      const { data: inserted, error } = await _supabase.from('users').insert({
+        name, email, phone: phone || null, password: hashedPw,
+        role: 'user', address: address || null, city
+      }).select();
+
+      if (error) throw new Error(error.message || 'Registration failed');
+
+      const row = inserted[0];
+      const user = { id: row.id, name: row.name, email: row.email, phone: row.phone, role: row.role, city: row.city, address: row.address };
+
+      // Store session token
+      await _supabase.from('user_sessions').insert({
+        user_id: row.id, token,
+        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
       });
-      if (error) throw new Error(error.message);
 
-      const authUser = data.user;
-      const token = data.session?.access_token || '';
-
-      // Also insert into public.users table for app queries
-      const userRow = {
-        name, email, phone: phone || null, password: '***supabase_auth***',
-        role: 'user', address: address || null, city,
-        auth_uid: authUser?.id || null
-      };
-      await _supabase.from('users').insert(userRow);
-
-      const user = {
-        id: authUser?.id, name, email, phone: phone || null,
-        role: 'user', city, address: address || null
-      };
       setToken(token);
       setUser(user);
       localStorage.setItem('st_login_ts', String(Date.now()));
@@ -81,33 +96,30 @@ const API = (function () {
     },
 
     async login(identifier, password) {
-      let email = identifier;
+      const hashedPw = await this._hashPassword(password);
 
-      // If identifier looks like a phone number, look up email first
-      if (/^[0-9+\-\s]{10,}$/.test(identifier.replace(/\s/g, ''))) {
-        const cleanPhone = identifier.replace(/[^0-9]/g, '');
-        const { data: rows } = await _supabase
-          .from('users')
-          .select('email')
-          .or(`phone.eq.${identifier},phone.eq.${cleanPhone}`)
-          .limit(1);
-        if (rows && rows.length > 0) {
-          email = rows[0].email;
-        } else {
-          throw new Error('No account found with this phone number.');
-        }
+      // Try email first, then phone
+      let query;
+      if (identifier.includes('@')) {
+        query = _supabase.from('users').select('*').eq('email', identifier).eq('password', hashedPw).limit(1);
+      } else {
+        // Phone number login
+        const cleanPhone = identifier.replace(/[^0-9+]/g, '');
+        query = _supabase.from('users').select('*').or(`phone.eq.${identifier},phone.eq.${cleanPhone}`).eq('password', hashedPw).limit(1);
       }
 
-      const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+      const { data: rows, error } = await query;
       if (error) throw new Error(error.message);
+      if (!rows || rows.length === 0) throw new Error('Invalid email/phone or password.');
 
-      const token = data.session?.access_token || '';
-      const meta = data.user?.user_metadata || {};
-      const user = {
-        id: data.user?.id, name: meta.name || '', email: data.user?.email,
-        phone: meta.phone || '', role: meta.role || 'user',
-        city: meta.city || 'Dhaka', address: meta.address || ''
-      };
+      const row = rows[0];
+      const user = { id: row.id, name: row.name, email: row.email, phone: row.phone, role: row.role, city: row.city, address: row.address };
+      const token = 'tok_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+      await _supabase.from('user_sessions').insert({
+        user_id: row.id, token,
+        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      });
 
       setToken(token);
       setUser(user);
@@ -116,38 +128,42 @@ const API = (function () {
     },
 
     async logout() {
-      try { await _supabase.auth.signOut(); } catch (e) {}
+      const token = getToken();
+      if (token) {
+        try { await _supabase.from('user_sessions').delete().eq('token', token); } catch(e) {}
+      }
       setToken(null);
       setUser(null);
       localStorage.removeItem('st_login_ts');
     },
 
     async getMe() {
-      const { data, error } = await _supabase.auth.getUser();
-      if (error || !data?.user) throw new Error('Not authenticated');
-      const meta = data.user.user_metadata || {};
-      const user = {
-        id: data.user.id, name: meta.name || '', email: data.user.email,
-        phone: meta.phone || '', role: meta.role || 'user',
-        city: meta.city || 'Dhaka', address: meta.address || ''
-      };
+      const token = getToken();
+      if (!token) throw new Error('Not authenticated');
+
+      const { data: sessions } = await _supabase.from('user_sessions')
+        .select('user_id').eq('token', token).limit(1);
+      if (!sessions || sessions.length === 0) throw new Error('Session expired');
+
+      const { data: rows } = await _supabase.from('users')
+        .select('*').eq('id', sessions[0].user_id).limit(1);
+      if (!rows || rows.length === 0) throw new Error('User not found');
+
+      const row = rows[0];
+      const user = { id: row.id, name: row.name, email: row.email, phone: row.phone, role: row.role, city: row.city, address: row.address };
       setUser(user);
       return { user };
     },
 
     async updateProfile(updates) {
-      const { data, error } = await _supabase.auth.updateUser({ data: updates });
+      const user = getUser();
+      if (!user) throw new Error('Not logged in');
+      const { data, error } = await _supabase.from('users').update(updates).eq('id', user.id).select();
       if (error) throw new Error(error.message);
-      const meta = data.user?.user_metadata || {};
-      const user = {
-        id: data.user?.id, name: meta.name || '', email: data.user?.email,
-        phone: meta.phone || '', role: meta.role || 'user',
-        city: meta.city || 'Dhaka', address: meta.address || ''
-      };
-      setUser(user);
-      // Also update public.users table
-      await _supabase.from('users').update(updates).eq('email', data.user?.email);
-      return { success: true, data: { user } };
+      const row = data[0];
+      const updatedUser = { id: row.id, name: row.name, email: row.email, phone: row.phone, role: row.role, city: row.city, address: row.address };
+      setUser(updatedUser);
+      return { success: true, data: { user: updatedUser } };
     },
 
     async getUsers(query = '') {
