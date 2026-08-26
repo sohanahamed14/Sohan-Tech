@@ -1,12 +1,1 @@
-# OS files
-.DS_Store
-Thumbs.db
-
-# XAMPP / local development
-localhost.session.sql
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+.vercel

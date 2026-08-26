@@ -1,7 +1,12 @@
 // ==========================================================
-// SOHAN TECH — Frontend API Client (MySQL Backend Connector)
-// Automatically connects to local XAMPP backend endpoints
+// SOHAN TECH — Frontend API Client (Supabase Backend)
+// Online mode — no XAMPP/PHP needed
 // ==========================================================
+
+const SUPABASE_URL = 'https://jcbuqexnysxahbfwaciu.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjYnVxZXhueXN4YWhiZndhY2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MTI5MzgsImV4cCI6MjEwMzI4ODkzOH0.oFP4j1xjCXFyw6szYyzdBDpqLJNIFtXw4jAGdbbGX7c';
+
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const API = (function () {
   // Session ID for guest cart tracking
@@ -11,267 +16,348 @@ const API = (function () {
     localStorage.setItem('st_session_id', sessionId);
   }
 
-  // Smart API base: works on localhost (XAMPP) and Vercel (static, no backend)
-  let apiBase = '';
-
-  async function detectApiBase() {
-    if (apiBase) return apiBase;
-
-    const host = window.location.hostname;
-    const isLocal = (host === 'localhost' || host === '127.0.0.1');
-
-    if (!isLocal) {
-      // On Vercel / production — no PHP backend available
-      // All data is stored in IndexedDB only
-      apiBase = '__NO_BACKEND__';
-      return apiBase;
-    }
-
-    // On localhost — try XAMPP backend
-    const candidates = [
-      'http://localhost/SOHAN%20TECH/backend',
-      'http://localhost/SOHAN TECH/backend',
-      'http://localhost/sohan_tech/backend',
-      'http://127.0.0.1/SOHAN%20TECH/backend',
-      'backend',
-      './backend'
-    ];
-
-    for (const base of candidates) {
-      try {
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), 1500);
-        const res = await fetch(`${base}/install.php`, { method: 'GET', signal: controller.signal });
-        clearTimeout(id);
-        if (res.ok) {
-          apiBase = base;
-          console.log('✅ SOHAN TECH API connected at:', apiBase);
-          return apiBase;
-        }
-      } catch(e) { /* try next */ }
-    }
-
-    // Fallback — no backend found
-    apiBase = '__NO_BACKEND__';
-    console.warn('⚠️ No XAMPP backend found. Using IndexedDB only.');
-    return apiBase;
-  }
-
-  // Token management
+  // --- Internal helpers ---
   function getToken() {
     return localStorage.getItem('st_token') || '';
   }
-
   function setToken(token) {
     if (token) localStorage.setItem('st_token', token);
     else localStorage.removeItem('st_token');
   }
-
   function getUser() {
-    try {
-      return JSON.parse(localStorage.getItem('st_user') || 'null');
-    } catch (e) {
-      return null;
-    }
+    try { return JSON.parse(localStorage.getItem('st_user') || 'null'); }
+    catch (e) { return null; }
   }
-
   function setUser(user) {
     if (user) localStorage.setItem('st_user', JSON.stringify(user));
     else localStorage.removeItem('st_user');
-  }
-
-  // Generic Request Helper
-  async function request(endpoint, method = 'GET', data = null) {
-    const base = await detectApiBase();
-
-    // No backend available (Vercel / static deployment)
-    if (base === '__NO_BACKEND__') {
-      throw new Error('No backend available — using offline mode');
-    }
-
-    const url = `${base}/${endpoint}`;
-
-    const headers = {
-      'Content-Type': 'application/json',
-      'X-Session-Id': sessionId
-    };
-
-    const token = getToken();
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    const options = {
-      method,
-      headers
-    };
-
-    if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-      options.body = JSON.stringify({ ...data, session_id: sessionId });
-    }
-
-    try {
-      const response = await fetch(url, options);
-      let json;
-      try {
-        json = await response.json();
-      } catch (parseErr) {
-        throw new Error(`Server returned status ${response.status} (${response.statusText})`);
-      }
-
-      if (!response.ok || json.success === false) {
-        // Extract descriptive validation error if present
-        let errMessage = json.message || 'API request failed';
-        if (json.data && Array.isArray(json.data.errors) && json.data.errors.length > 0) {
-          errMessage = json.data.errors.join(' • ');
-        }
-        const error = new Error(errMessage);
-        error.errors = json.data?.errors || [];
-        error.status = response.status;
-        throw error;
-      }
-      return json;
-    } catch (err) {
-      console.warn(`API Error [${endpoint}]:`, err.message);
-      throw err;
-    }
   }
 
   return {
     getSessionId: () => sessionId,
     getToken,
     getUser,
-    // Fixed: Also check if cached session could be expired (client-side heuristic)
+
     isLoggedIn: () => {
       const token = getToken();
       const user = getUser();
       if (!token || !user) return false;
-      // Check login timestamp if available (30-day expiry)
       const loginTs = parseInt(localStorage.getItem('st_login_ts') || '0', 10);
       if (loginTs && (Date.now() - loginTs) > 30 * 24 * 60 * 60 * 1000) {
-        // Token likely expired — clear and return false
-        setToken(null);
-        setUser(null);
-        localStorage.removeItem('st_login_ts');
+        setToken(null); setUser(null); localStorage.removeItem('st_login_ts');
         return false;
       }
       return true;
     },
 
-    // --- AUTH ---
+    // --- AUTH (Supabase Auth) ---
     async register(name, email, phone, password, address = '', city = 'Dhaka') {
-      const res = await request('api/auth/register.php', 'POST', { name, email, phone, password, address, city });
-      if (res.data?.token) { setToken(res.data.token); localStorage.setItem('st_login_ts', String(Date.now())); }
-      if (res.data?.user) setUser(res.data.user);
-      return res;
+      const { data, error } = await _supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { name, phone, city, address } }
+      });
+      if (error) throw new Error(error.message);
+
+      const authUser = data.user;
+      const token = data.session?.access_token || '';
+
+      // Also insert into public.users table for app queries
+      const userRow = {
+        name, email, phone: phone || null, password: '***supabase_auth***',
+        role: 'user', address: address || null, city,
+        auth_uid: authUser?.id || null
+      };
+      await _supabase.from('users').insert(userRow);
+
+      const user = {
+        id: authUser?.id, name, email, phone: phone || null,
+        role: 'user', city, address: address || null
+      };
+      setToken(token);
+      setUser(user);
+      localStorage.setItem('st_login_ts', String(Date.now()));
+      return { success: true, data: { user, token }, message: 'Registration successful!' };
     },
 
     async login(identifier, password) {
-      const res = await request('api/auth/login.php', 'POST', { identifier, password });
-      if (res.data?.token) { setToken(res.data.token); localStorage.setItem('st_login_ts', String(Date.now())); }
-      if (res.data?.user) setUser(res.data.user);
-      return res;
+      let email = identifier;
+
+      // If identifier looks like a phone number, look up email first
+      if (/^[0-9+\-\s]{10,}$/.test(identifier.replace(/\s/g, ''))) {
+        const cleanPhone = identifier.replace(/[^0-9]/g, '');
+        const { data: rows } = await _supabase
+          .from('users')
+          .select('email')
+          .or(`phone.eq.${identifier},phone.eq.${cleanPhone}`)
+          .limit(1);
+        if (rows && rows.length > 0) {
+          email = rows[0].email;
+        } else {
+          throw new Error('No account found with this phone number.');
+        }
+      }
+
+      const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+      if (error) throw new Error(error.message);
+
+      const token = data.session?.access_token || '';
+      const meta = data.user?.user_metadata || {};
+      const user = {
+        id: data.user?.id, name: meta.name || '', email: data.user?.email,
+        phone: meta.phone || '', role: meta.role || 'user',
+        city: meta.city || 'Dhaka', address: meta.address || ''
+      };
+
+      setToken(token);
+      setUser(user);
+      localStorage.setItem('st_login_ts', String(Date.now()));
+      return { success: true, data: { user, token }, message: 'Login successful!' };
     },
 
     async logout() {
-      try {
-        await request('api/auth/logout.php', 'POST');
-      } catch (e) {}
+      try { await _supabase.auth.signOut(); } catch (e) {}
       setToken(null);
       setUser(null);
       localStorage.removeItem('st_login_ts');
     },
 
     async getMe() {
-      const res = await request('api/auth/me.php', 'GET');
-      if (res.data?.user) setUser(res.data.user);
-      return res.data;
+      const { data, error } = await _supabase.auth.getUser();
+      if (error || !data?.user) throw new Error('Not authenticated');
+      const meta = data.user.user_metadata || {};
+      const user = {
+        id: data.user.id, name: meta.name || '', email: data.user.email,
+        phone: meta.phone || '', role: meta.role || 'user',
+        city: meta.city || 'Dhaka', address: meta.address || ''
+      };
+      setUser(user);
+      return { user };
     },
 
     async updateProfile(updates) {
-      const res = await request('api/auth/update_profile.php', 'POST', updates);
-      if (res.data?.user) setUser(res.data.user);
-      return res;
+      const { data, error } = await _supabase.auth.updateUser({ data: updates });
+      if (error) throw new Error(error.message);
+      const meta = data.user?.user_metadata || {};
+      const user = {
+        id: data.user?.id, name: meta.name || '', email: data.user?.email,
+        phone: meta.phone || '', role: meta.role || 'user',
+        city: meta.city || 'Dhaka', address: meta.address || ''
+      };
+      setUser(user);
+      // Also update public.users table
+      await _supabase.from('users').update(updates).eq('email', data.user?.email);
+      return { success: true, data: { user } };
     },
 
     async getUsers(query = '') {
-      return await request(`api/auth/users.php?q=${encodeURIComponent(query)}`, 'GET');
+      let q = _supabase.from('users').select('id,name,email,phone,role,city,created_at');
+      if (query) q = q.or(`name.ilike.%${query}%,email.ilike.%${query}%,phone.ilike.%${query}%`);
+      const { data, error } = await q.limit(50);
+      if (error) throw new Error(error.message);
+      return { success: true, data: { users: data || [] } };
     },
 
-    // --- CART (MySQL Persistent Storage) ---
+    // --- CART (Supabase DB) ---
     async getCart() {
-      return await request(`api/cart/get.php?session_id=${encodeURIComponent(sessionId)}`, 'GET');
+      const { data, error } = await _supabase
+        .from('cart_items')
+        .select('*')
+        .eq('session_id', sessionId);
+      return { success: true, data: { items: data || [] } };
     },
 
     async addToCart(product, qty = 1) {
-      return await request('api/cart/add.php', 'POST', {
-        id: product.id,
-        name: product.name,
-        brand: product.brand || '',
-        price: product.price,
-        oldPrice: product.old || product.oldPrice || null,
-        qty: qty,
-        emoji: product.emoji || '🛍️',
-        img: product.img || null,
-        category: product.category || 'general'
-      });
+      const userId = getUser()?.id || null;
+      const { data: existing } = await _supabase
+        .from('cart_items')
+        .select('id,qty')
+        .eq('session_id', sessionId)
+        .eq('product_id', product.id)
+        .limit(1);
+
+      if (existing && existing.length > 0) {
+        await _supabase.from('cart_items')
+          .update({ qty: existing[0].qty + qty, updated_at: new Date().toISOString() })
+          .eq('id', existing[0].id);
+      } else {
+        await _supabase.from('cart_items').insert({
+          session_id: sessionId,
+          product_id: product.id,
+          name: product.name,
+          brand: product.brand || '',
+          price: product.price,
+          old_price: product.old || product.oldPrice || null,
+          qty,
+          emoji: product.emoji || '🛍️',
+          image_url: product.img || null,
+          category: product.category || 'general'
+        });
+      }
+      return { success: true };
     },
 
     async updateCartQty(productId, qty) {
-      return await request('api/cart/update.php', 'POST', { product_id: productId, qty });
+      await _supabase.from('cart_items')
+        .update({ qty, updated_at: new Date().toISOString() })
+        .eq('session_id', sessionId)
+        .eq('product_id', productId);
+      return { success: true };
     },
 
     async removeFromCart(productId) {
-      return await request('api/cart/remove.php', 'POST', { product_id: productId });
+      await _supabase.from('cart_items')
+        .delete()
+        .eq('session_id', sessionId)
+        .eq('product_id', productId);
+      return { success: true };
     },
 
     async clearCart() {
-      return await request('api/cart/clear.php', 'POST');
+      await _supabase.from('cart_items')
+        .delete()
+        .eq('session_id', sessionId);
+      return { success: true };
     },
 
     async syncCart(items, replace = false) {
-      return await request('api/cart/sync.php', 'POST', { items, replace });
+      if (replace) {
+        await _supabase.from('cart_items').delete().eq('session_id', sessionId);
+      }
+      if (items && items.length > 0) {
+        const rows = items.map(i => ({
+          session_id: sessionId,
+          product_id: i.id,
+          name: i.name,
+          brand: i.brand || '',
+          price: i.price,
+          old_price: i.oldPrice || null,
+          qty: i.qty || 1,
+          emoji: i.emoji || '🛍️',
+          image_url: i.img || null,
+          category: i.category || 'general'
+        }));
+        await _supabase.from('cart_items').upsert(rows, { onConflict: 'session_id,product_id' });
+      }
+      return { success: true };
     },
 
-    // --- ORDERS (MySQL Persistent Storage) ---
+    // --- ORDERS (Supabase DB) ---
     async createOrder(orderPayload) {
-      return await request('api/orders/create.php', 'POST', orderPayload);
+      const o = orderPayload;
+      const orderRow = {
+        order_id: o.orderId,
+        customer_name: o.customer?.name || '',
+        customer_phone: o.customer?.phone || '',
+        customer_email: o.customer?.email || '',
+        customer_address: o.customer?.address || '',
+        customer_city: o.customer?.city || 'Dhaka',
+        customer_note: o.customer?.note || '',
+        subtotal: o.subtotal || 0,
+        shipping: o.shipping || 0,
+        savings: o.savings || 0,
+        total: o.total || 0,
+        payment_method: o.paymentMethod || 'cod'
+      };
+      const { error: oErr } = await _supabase.from('orders').insert(orderRow);
+      if (oErr) throw new Error(oErr.message);
+
+      // Insert order items
+      if (o.items && o.items.length > 0) {
+        const itemRows = o.items.map(i => ({
+          order_id: o.orderId,
+          product_id: i.id || '',
+          name: i.name,
+          brand: i.brand || '',
+          price: i.price,
+          old_price: i.oldPrice || null,
+          qty: i.qty || 1,
+          emoji: i.emoji || '🛍️',
+          image_url: i.img || null,
+          category: i.category || 'general'
+        }));
+        await _supabase.from('order_items').insert(itemRows);
+      }
+
+      return { success: true, data: { orderId: o.orderId } };
     },
 
     async getOrders(options = '') {
-      let query = '';
-      if (typeof options === 'string') {
-        if (options) query = `?phone=${encodeURIComponent(options)}`;
+      let q = _supabase.from('orders').select('*').order('created_at', { ascending: false });
+
+      if (typeof options === 'string' && options) {
+        q = q.eq('customer_phone', options);
       } else if (typeof options === 'object' && options !== null) {
-        const params = new URLSearchParams();
-        if (options.phone) params.set('phone', options.phone);
-        if (options.ids) params.set('ids', Array.isArray(options.ids) ? options.ids.join(',') : options.ids);
-        if (options.all) params.set('all', '1');
-        if (options.q) params.set('q', options.q);
-        const str = params.toString();
-        if (str) query = `?${str}`;
+        if (options.phone) q = q.eq('customer_phone', options.phone);
+        if (options.ids && Array.isArray(options.ids)) q = q.in('order_id', options.ids);
       }
-      return await request(`api/orders/list.php${query}`, 'GET');
+
+      const { data, error } = await q.limit(100);
+      if (error) throw new Error(error.message);
+
+      // Map to frontend format
+      const orders = (data || []).map(o => ({
+        orderId: o.order_id,
+        customer: {
+          name: o.customer_name, phone: o.customer_phone,
+          email: o.customer_email, address: o.customer_address,
+          city: o.customer_city, note: o.customer_note
+        },
+        subtotal: parseFloat(o.subtotal), shipping: parseFloat(o.shipping),
+        savings: parseFloat(o.savings), total: parseFloat(o.total),
+        paymentMethod: o.payment_method,
+        createdAt: o.created_at, updatedAt: o.updated_at,
+        items: [] // items loaded separately if needed
+      }));
+
+      return { success: true, data: { orders } };
     },
 
     async getOrder(orderId) {
-      return await request(`api/orders/get.php?order_id=${encodeURIComponent(orderId)}`, 'GET');
+      const { data: oData } = await _supabase.from('orders').select('*').eq('order_id', orderId).limit(1);
+      if (!oData || oData.length === 0) throw new Error('Order not found');
+      const o = oData[0];
+
+      const { data: items } = await _supabase.from('order_items').select('*').eq('order_id', orderId);
+
+      const order = {
+        orderId: o.order_id,
+        customer: {
+          name: o.customer_name, phone: o.customer_phone,
+          email: o.customer_email, address: o.customer_address,
+          city: o.customer_city, note: o.customer_note
+        },
+        subtotal: parseFloat(o.subtotal), shipping: parseFloat(o.shipping),
+        savings: parseFloat(o.savings), total: parseFloat(o.total),
+        paymentMethod: o.payment_method,
+        createdAt: o.created_at, updatedAt: o.updated_at,
+        items: (items || []).map(i => ({
+          id: i.product_id, name: i.name, brand: i.brand,
+          price: parseFloat(i.price), oldPrice: i.old_price ? parseFloat(i.old_price) : null,
+          qty: i.qty, emoji: i.emoji, img: i.image_url, category: i.category
+        }))
+      };
+
+      return { success: true, data: { order } };
     },
 
-    // --- NEWSLETTER (Stay in the Loop - MySQL Storage) ---
+    // --- NEWSLETTER (Supabase DB) ---
     async subscribeNewsletter(email, source = 'homepage_stay_in_the_loop') {
-      return await request('api/newsletter/subscribe.php', 'POST', { email, source });
+      const { error } = await _supabase.from('newsletter_subscribers')
+        .upsert({ email, source }, { onConflict: 'email' });
+      if (error) throw new Error(error.message);
+      return { success: true, message: 'Subscribed!' };
     },
 
     async getNewsletterSubscribers() {
-      return await request('api/newsletter/list.php', 'GET');
+      const { data } = await _supabase.from('newsletter_subscribers').select('*').order('created_at', { ascending: false });
+      return { success: true, data: { subscribers: data || [] } };
     },
 
     async checkHealth() {
       try {
-        const base = await detectApiBase();
-        const res = await fetch(`${base}/install.php`);
-        return await res.json();
+        const { data, error } = await _supabase.from('users').select('id', { count: 'exact', head: true });
+        return { success: !error, message: error ? error.message : 'Supabase connected!' };
       } catch(e) {
         return { success: false, message: e.message };
       }
@@ -279,7 +365,7 @@ const API = (function () {
   };
 })();
 
-// Auto-detect base on load (only fetch profile if logged in)
+// Auto-check session on load
 if (API.isLoggedIn()) {
   API.getMe().catch(() => {});
 }
