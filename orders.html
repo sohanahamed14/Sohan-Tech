@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders – SOHAN TECH</title>
+  <meta name="description" content="View and track your order history at SOHAN TECH." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>(function () { const t = localStorage.getItem('st_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+  <style>
+    .orders-hero {
+      background: #000;
+      padding: 120px 8% 60px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .orders-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, .28), transparent 70%);
+    }
+
+    .orders-hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .orders-hero p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, .65);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .orders-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .orders-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .orders-filter-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .orders-filter-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1.5px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--fg2);
+      cursor: pointer;
+      transition: var(--trans);
+      font-family: inherit;
+    }
+
+    .orders-filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--fg);
+    }
+
+    .orders-filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .orders-search-input {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border-color);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      min-width: 220px;
+      transition: var(--trans);
+    }
+
+    .orders-search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+    }
+
+    .order-tracking-bar {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 20px 0 24px;
+      padding: 0 10px;
+    }
+
+    .order-tracking-bar::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 30px;
+      right: 30px;
+      height: 3px;
+      background: var(--border-color);
+      z-index: 0;
+    }
+
+    .track-step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      flex: 1;
+    }
+
+    .track-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--border-color);
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--fg2);
+      transition: var(--trans);
+    }
+
+    .track-step.done .track-dot {
+      background: #10b981;
+      border-color: #10b981;
+      color: #fff;
+    }
+
+    .track-step.current .track-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, .2);
+    }
+
+    .track-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--fg2);
+    }
+
+    .track-step.done .track-text,
+    .track-step.current .track-text {
+      color: var(--fg);
+    }
+
+    .copy-id-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--fg2);
+      font-size: 12px;
+      margin-left: 6px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: var(--trans);
+    }
+
+    .copy-id-btn:hover {
+      background: var(--bg2);
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== COMBINED UNIFIED NAVBAR ===== -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-inner">
+      <!-- Left: Category Menu Drawer Button & Logo -->
+      <div class="nav-left">
+        <button class="cat-menu-btn" id="catMenuBtn" aria-label="Browse Categories" title="Browse Categories">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </button>
+        <a href="index.html" class="nav-logo">SOHAN TECH</a>
+      </div>
+
+      <!-- Center: Combined Category & Main Links with Dropdowns -->
+      <div class="nav-categories">
+        <div class="cat-item" data-cat="mobiles">
+          <a href="mobiles.html"><span class="cat-icon">📱</span> PHONES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="mobiles.html">Samsung</a><a href="mobiles.html">iPhone</a>
+              <a href="mobiles.html">Xiaomi</a><a href="mobiles.html">Oppo</a>
+              <a href="mobiles.html">Vivo</a><a href="mobiles.html">Realme</a>
+              <a href="mobiles.html">OnePlus</a><a href="mobiles.html">Google</a>
+              <a href="mobiles.html">Honor</a><a href="mobiles.html">Nothing</a>
+              <a href="mobiles.html">Tecno</a><a href="mobiles.html">Infinix</a>
+              <a href="mobiles.html">Motorola</a><a href="mobiles.html">Huawei</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="laptops">
+          <a href="laptops.html"><span class="cat-icon">💻</span> LAPTOP</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="laptops.html">Apple MacBook</a><a href="laptops.html">Dell</a>
+              <a href="laptops.html">HP</a><a href="laptops.html">Lenovo</a>
+              <a href="laptops.html">Asus</a><a href="laptops.html">Acer</a>
+              <a href="laptops.html">MSI</a><a href="laptops.html">Samsung</a>
+              <a href="laptops.html">Gaming Laptop</a><a href="laptops.html">Ultrabook</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="chargers">
+          <a href="chargers.html"><span class="cat-icon">🔌</span> CHARGERS</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="chargers.html">Fast Charger</a><a href="chargers.html">Wireless Charger</a>
+              <a href="chargers.html">Car Charger</a><a href="chargers.html">Power Bank</a>
+              <a href="chargers.html">USB-C Charger</a><a href="chargers.html">Multi-Port</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="accessories">
+          <a href="accessories.html"><span class="cat-icon">🎧</span> ACCESSORIES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-3">
+              <a href="accessories.html">Earbuds</a><a href="accessories.html">Headphones</a>
+              <a href="accessories.html">Smart Watch</a><a href="accessories.html">Phone Cases</a>
+              <a href="accessories.html">Screen Protector</a><a href="accessories.html">Cables</a>
+              <a href="accessories.html">Keyboard</a><a href="accessories.html">Mouse</a>
+              <a href="accessories.html">Speaker</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="drones">
+          <a href="drones.html"><span class="cat-icon">🚁</span> DRONES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="drones.html">DJI</a><a href="drones.html">Camera Drone</a>
+              <a href="drones.html">Racing Drone</a><a href="drones.html">Mini Drone</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <a href="orders.html" style="color:var(--accent);font-weight:700"><span class="cat-icon">📦</span> ORDERS</a>
+        </div>
+        <div class="cat-item">
+          <a href="support.html"><span class="cat-icon">🎯</span> SUPPORT</a>
+        </div>
+      </div>
+
+      <!-- Exact Middle Between SUPPORT and SEARCH: Admin Info Button -->
+      <div class="nav-admin-slot">
+        <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer" class="nav-admin-btn"
+          title="Admin — Sohan Ahammed">
+          <span class="admin-avatar-icon"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40"
+              alt="Sohan Ahammed" class="admin-avatar-img" /></span>
+          <span class="admin-btn-text">ADMIN INFO</span>
+        </a>
+      </div>
+
+      <!-- Right: Action Buttons -->
+      <div class="nav-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search" title="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
+        <button class="icon-btn" id="cartBtn" aria-label="Cart" title="Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+        <a href="account.html" class="icon-btn" id="userBtn" aria-label="My Account" title="My Account"
+          style="color:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle light/dark mode">
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="mobiles.html">📱 Mobiles</a>
+      <a href="laptops.html">💻 Laptops</a>
+      <a href="chargers.html">🔌 Chargers</a>
+      <a href="accessories.html">🎧 Accessories</a>
+      <a href="drones.html">🚁 Drones</a>
+      <a href="orders.html" style="color:var(--accent);font-weight:600">📦 Orders</a>
+      <a href="account.html">👤 Account</a>
+      <a href="support.html">🎯 Support</a>
+      <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer"
+        class="admin-info-mobile-link">
+        <span class="admin-avatar-icon-mobile"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40"
+            alt="Sohan" class="admin-avatar-img" /></span> Admin Info
+      </a>
+    </div>
+
+    <!-- Search overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-input-wrap">
+        <svg class="search-icon-inner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search mobiles, laptops, accessories…" autocomplete="off"
+          spellcheck="false" />
+        <span class="search-kbd" id="searchClear" style="display:none" title="Clear">✕</span>
+      </div>
+      <button id="closeSearch" aria-label="Close search">✕</button>
+    </div>
+
+    <!-- Search Results Dropdown -->
+    <div class="search-results-panel" id="searchResultsPanel">
+      <div class="srp-inner" id="searchResultsInner"></div>
+    </div>
+  </nav>
+
+  <!-- ===== FULL-SCREEN CATEGORY SIDEBAR DRAWER ===== -->
+  <div class="cat-sidebar-overlay" id="catSidebarOverlay"></div>
+  <aside class="cat-sidebar" id="catSidebar">
+    <div class="cat-sidebar-header">
+      <h3>Browse Categories</h3>
+      <button class="cat-sidebar-close" id="catSidebarClose" aria-label="Close menu">✕</button>
+    </div>
+    <div class="cat-sidebar-body">
+      <a href="mobiles.html" class="cat-sidebar-item">📱 Phones</a>
+      <a href="laptops.html" class="cat-sidebar-item">💻 Laptops</a>
+      <a href="chargers.html" class="cat-sidebar-item">🔌 Chargers</a>
+      <a href="accessories.html" class="cat-sidebar-item">🎧 Accessories</a>
+      <a href="drones.html" class="cat-sidebar-item">🚁 Drones</a>
+      <a href="orders.html" class="cat-sidebar-item" style="color:var(--accent);font-weight:600">📦 Orders</a>
+      <a href="account.html" class="cat-sidebar-item">👤 Account</a>
+      <a href="support.html" class="cat-sidebar-item">🎯 Support</a>
+      <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer"
+        class="cat-sidebar-item admin-sidebar-item">
+        <span class="admin-avatar-icon-mobile"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40"
+            alt="Sohan" class="admin-avatar-img" /></span> Admin Info
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== HERO ===== -->
+  <header class="orders-hero">
+    <h1>My Order History</h1>
+    <p>Track your orders, view item details, and manage delivery receipts.</p>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="orders-container">
+    <div class="orders-toolbar">
+      <div class="orders-filter-group">
+        <button class="orders-filter-btn active" data-filter="all">All Orders</button>
+        <button class="orders-filter-btn" data-filter="bkash">💗 bKash</button>
+        <button class="orders-filter-btn" data-filter="nagad">🟠 Nagad</button>
+        <button class="orders-filter-btn" data-filter="card">💳 Card</button>
+        <button class="orders-filter-btn" data-filter="cod">💵 Cash on Delivery</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <input type="text" class="orders-search-input" id="ordersSearch"
+          placeholder="Search by Order ID, name or phone..." />
+        <button class="orders-filter-btn" id="syncBtn" onclick="manualSyncOrders()"
+          style="display:flex;align-items:center;gap:6px;" title="Fetch latest status from MySQL">
+          <span id="syncIcon">🔄</span> <span>Live Sync</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="liveSyncStatus"
+      style="font-size:12px;color:var(--fg2);margin:-16px 0 20px;display:flex;align-items:center;gap:8px;">
+      <span
+        style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;"></span>
+      <span>Connected to MySQL Database (Sohan_Tech_db) • Auto-sync active</span>
+      <span id="lastSyncTime" style="margin-left:auto;opacity:.7;"></span>
+    </div>
+
+    <!-- Orders List Container -->
+    <div id="ordersListArea">
+      <div style="text-align:center;padding:60px 0;color:var(--fg2)">Loading orders from database...</div>
+    </div>
+  </main>
+
+  <!-- ===== CART OVERLAY & DRAWER ===== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="empty-icon">🛍️</div>
+        <p>Your cart is empty</p>
+        <a href="index.html" class="btn btn-primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">Total: <span id="cartTotal">৳ 0</span></div>
+      <button class="btn btn-primary full-btn" onclick="openCheckout()">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ===== CHECKOUT MODAL ===== -->
+  <div class="checkout-overlay" id="checkoutOverlay" onclick="if(event.target===this)closeCheckout()">
+    <div class="checkout-modal">
+      <div class="checkout-header">
+        <h3>🛒 Checkout</h3>
+        <button class="checkout-close" onclick="closeCheckout()">×</button>
+      </div>
+      <div class="checkout-steps">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <span class="step-label" id="stepLabel">Review Order</span>
+      </div>
+      <div class="checkout-body" id="checkoutBody"></div>
+      <div class="checkout-footer">
+        <button class="btn btn-back" id="checkoutBack" onclick="prevStep()" style="display:none">← Back</button>
+        <button class="btn btn-primary" id="checkoutNext" onclick="nextStep()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+  <script src="api.js"></script>
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+  <script>
+    let allOrders = [];
+    let currentFilter = 'all';
+    let searchQuery = '';
+    let isSyncing = false;
+
+    async function loadOrdersView(silent = false) {
+      if (isSyncing) return;
+      isSyncing = true;
+      const syncIcon = document.getElementById('syncIcon');
+      if (syncIcon && !silent) syncIcon.style.animation = 'spin 1s linear infinite';
+
+      // 1. Instant local render (0ms)
+      try {
+        const local = await dbGetAll('orders');
+        if (local && local.length > 0) {
+          allOrders = local.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          renderOrders();
+        }
+      } catch (e) { }
+
+      // 2. Fresh live sync with MySQL
+      try {
+        allOrders = await dbGetOrders();
+        renderOrders();
+        updateLastSyncTime();
+      } catch (err) {
+        console.error('Failed to load orders:', err);
+        if (!silent && allOrders.length === 0) {
+          document.getElementById('ordersListArea').innerHTML = `
+            <div class="orders-empty">
+              <div class="orders-empty-icon">⚠️</div>
+              <h3>Could not load orders</h3>
+              <p>Database error: ${err.message}. Please refresh the page.</p>
+            </div>
+          `;
+        }
+      } finally {
+        isSyncing = false;
+        if (syncIcon) syncIcon.style.animation = 'none';
+      }
+    }
+
+    async function manualSyncOrders() {
+      showToast('🔄 Syncing with MySQL database...');
+      await loadOrdersView(false);
+      showToast('Orders up to date with database ✓');
+    }
+
+    function updateLastSyncTime() {
+      const el = document.getElementById('lastSyncTime');
+      if (el) {
+        el.textContent = `Last sync: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
+      }
+    }
+
+    // Render order items with XSS protection (uses escapeHtml from app.js)
+    function renderOrders() {
+      const container = document.getElementById('ordersListArea');
+      if (!container) return;
+
+      let filtered = allOrders;
+
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(o => (o.paymentMethod || 'cod') === currentFilter);
+      }
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(o =>
+          (o.orderId && o.orderId.toLowerCase().includes(q)) ||
+          (o.customer?.name && o.customer.name.toLowerCase().includes(q)) ||
+          (o.customer?.phone && o.customer.phone.toLowerCase().includes(q)) ||
+          (o.items && o.items.some(it => it.name && it.name.toLowerCase().includes(q)))
+        );
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="orders-empty">
+            <div class="orders-empty-icon">📦</div>
+            <h3>${allOrders.length === 0 ? 'No orders placed yet' : 'No matching orders found'}</h3>
+            <p>${allOrders.length === 0 ? 'When you complete a checkout, your full order history will appear here.' : 'Try searching another keyword or phone number.'}</p>
+            <a href="index.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex">Explore Products</a>
+          </div>
+        `;
+        return;
+      }
+
+      const payMap = {
+        bkash:  { label: '💗 bKash',           color: '#e91e8c', bg: 'rgba(233,30,140,.15)' },
+        nagad:  { label: '🟠 Nagad',            color: '#f97316', bg: 'rgba(249,115,22,.15)' },
+        card:   { label: '💳 Card',             color: '#6366f1', bg: 'rgba(99,102,241,.15)' },
+        cod:    { label: '💵 Cash on Delivery', color: '#10b981', bg: 'rgba(16,185,129,.15)' }
+      };
+
+      const payNames = { cod: 'Cash on Delivery', bkash: 'bKash', nagad: 'Nagad', card: 'Credit/Debit Card' };
+
+      let html = '';
+      filtered.forEach((order, idx) => {
+        const dateStr = new Date(order.createdAt).toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        });
+
+        const payKey = (order.paymentMethod || 'cod').toLowerCase();
+        const payInfo = payMap[payKey] || { label: (order.paymentMethod || 'COD').toUpperCase(), color: '#10b981', bg: 'rgba(16,185,129,.15)' };
+
+        // XSS-safe versions of user data
+        const safeCustName = escapeHtml(order.customer?.name || 'Customer');
+        const safeCustPhone = escapeHtml(order.customer?.phone || '—');
+        const safeCustAddr = escapeHtml(order.customer?.address || '');
+        const safeCustCity = escapeHtml(order.customer?.city || '');
+        const safeCustNote = escapeHtml(order.customer?.note || '');
+        const safeOrderId = escapeHtml(order.orderId);
+
+        let itemsHtml = '';
+        (order.items || []).forEach(item => {
+          const safeItemName = escapeHtml(item.name);
+          const safeItemBrand = escapeHtml(item.brand);
+          const iconContent = item.img
+            ? `<img src="${escapeHtml(item.img)}" alt="${safeItemName}" />`
+            : (item.emoji || '🛍️');
+
+          itemsHtml += `
+            <div class="order-item-row">
+              <div class="order-item-emoji">${iconContent}</div>
+              <div class="order-item-info">
+                <div class="order-item-name">${safeItemName}</div>
+                <div class="order-item-qty">${safeItemBrand ? safeItemBrand + ' · ' : ''}Qty: ${item.qty}</div>
+              </div>
+              <div class="order-item-price">৳ ${(item.price * item.qty).toLocaleString()}</div>
+            </div>
+          `;
+        });
+
+
+
+        html += `
+          <div class="order-card ${idx === 0 ? 'expanded' : ''}" id="order-${safeOrderId}">
+            <div class="order-card-header" onclick="toggleOrderCard('${safeOrderId}')">
+              <div class="order-meta">
+                <div class="order-meta-id">
+                  ${safeOrderId}
+                  <button class="copy-id-btn" onclick="event.stopPropagation();copyOrderId('${safeOrderId}')" title="Copy Order ID">📋 Copy</button>
+                </div>
+                <div class="order-meta-date">Placed on ${dateStr}</div>
+              </div>
+              <div class="order-status" style="color:${payInfo.color};background:${payInfo.bg}">${payInfo.label}</div>
+              <div class="order-total-badge">৳ ${Number(order.total || 0).toLocaleString()}</div>
+              <button class="order-toggle" aria-label="Toggle details">▼</button>
+            </div>
+            <div class="order-card-body">
+
+              <h4 style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--fg)">Ordered Products (${(order.items || []).length})</h4>
+              <div class="order-items-list">
+                ${itemsHtml}
+              </div>
+
+              <div class="order-breakdown">
+                <div class="cart-summary-row"><span>Subtotal</span><span>৳ ${Number(order.subtotal || 0).toLocaleString()}</span></div>
+                ${order.savings > 0 ? `<div class="cart-summary-row savings"><span>Savings</span><span>−৳ ${Number(order.savings).toLocaleString()}</span></div>` : ''}
+                <div class="cart-summary-row"><span>Shipping</span><span>${order.shipping === 0 ? 'Free ✓' : '৳ ' + Number(order.shipping || 0)}</span></div>
+                <div class="cart-summary-row total"><span>Grand Total</span><span>৳ ${Number(order.total || 0).toLocaleString()}</span></div>
+              </div>
+
+              <div class="order-customer">
+                <p><strong>Shipping To:</strong> ${safeCustName} · ${safeCustPhone}</p>
+                <p><strong>Address:</strong> ${safeCustAddr}${safeCustCity ? ', ' + safeCustCity : ''}</p>
+                <p><strong>Payment Method:</strong> ${payNames[order.paymentMethod] || escapeHtml(order.paymentMethod || 'COD')}</p>
+                ${safeCustNote ? `<p><strong>Note:</strong> ${safeCustNote}</p>` : ''}
+              </div>
+
+              <div class="order-actions">
+                <button class="btn btn-primary" onclick="reorderItems('${safeOrderId}')">🛒 Reorder Items</button>
+                <button class="btn-receipt" onclick="printOrderReceipt('${safeOrderId}')">🖨️ Print Invoice</button>
+                <button class="btn-receipt" onclick="shareOrderReceipt('${safeOrderId}')">📤 Share</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function toggleOrderCard(orderId) {
+      const card = document.getElementById('order-' + orderId);
+      if (card) {
+        card.classList.toggle('expanded');
+      }
+    }
+
+    // Removed duplicate copyOrderId, printOrderReceipt, shareOrderReceipt —
+    // these are already defined in app.js and work correctly from there.
+
+    async function reorderItems(orderId) {
+      const order = allOrders.find(o => o.orderId === orderId);
+      if (!order) return;
+      for (const item of (order.items || [])) {
+        await dbAddToCart(item.id, item.name, item.price, item.emoji, item.qty);
+      }
+      await loadCart();
+      openCart();
+      showToast('Added ' + (order.items || []).length + ' items to cart ✓');
+    }
+
+    // Filter Buttons (exclude sync button)
+    document.querySelectorAll('.orders-filter-btn[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.orders-filter-btn[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderOrders();
+      });
+    });
+
+    // Search input
+    document.getElementById('ordersSearch')?.addEventListener('input', async (e) => {
+      searchQuery = e.target.value.trim();
+      renderOrders();
+
+      // If user searched for an exact Order ID (starts with ST-) and not found locally, query MySQL
+      if (searchQuery.toUpperCase().startsWith('ST-') && !allOrders.some(o => o.orderId.toLowerCase() === searchQuery.toLowerCase())) {
+        try {
+          const res = await API.getOrder(searchQuery.toUpperCase());
+          if (res && res.data?.order) {
+            await dbPut('orders', res.data.order);
+            allOrders = await dbGetAll('orders');
+            renderOrders();
+          }
+        } catch (err) { }
+      }
+    });
+
+    // URL parameter auto-filter
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetOrderId = urlParams.get('id');
+    if (targetOrderId) {
+      searchQuery = targetOrderId;
+      const input = document.getElementById('ordersSearch');
+      if (input) input.value = targetOrderId;
+    }
+
+    // Fixed: Real-time Database Polling reduced from 8s to 30s for better performance
+    setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadOrdersView(true);
+      }
+    }, 30000);
+
+    // Fixed: Single combined handler instead of duplicate focus + visibilitychange listeners
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') loadOrdersView(true);
+    });
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      loadOrdersView();
+      loadCart();
+    });
+  </script>
+</body>
+
+</html>

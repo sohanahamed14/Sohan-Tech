@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support – SOHAN TECH</title>
+  <meta name="description" content="SOHAN TECH Support – Safety information, genuine parts guidance, and contact us." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>(function () { const t = localStorage.getItem('st_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+  <style>
+    /* === SUPPORT PAGE EXTRAS === */
+    .sup-hero {
+      background: #000;
+      padding: 120px 8% 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .sup-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, .25), transparent 70%)
+    }
+
+    .sup-hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1
+    }
+
+    .sup-hero p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, .6);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1
+    }
+
+    .sup-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 32px 8% 0;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg)
+    }
+
+    .sup-tab {
+      padding: 12px 24px;
+      border-radius: 980px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      background: transparent;
+      color: var(--fg2);
+      transition: .25s
+    }
+
+    .sup-tab.active,
+    .sup-tab:hover {
+      background: #6366f1;
+      color: #fff
+    }
+
+    .sup-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 8%
+    }
+
+    /* Warning boxes */
+    .warn-box {
+      background: rgba(245, 158, 11, .1);
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 16px 16px 0;
+      padding: 24px 28px;
+      margin: 32px 0;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start
+    }
+
+    .warn-box.danger {
+      background: rgba(239, 68, 68, .1);
+      border-left-color: #ef4444
+    }
+
+    .warn-box.info {
+      background: rgba(59, 130, 246, .1);
+      border-left-color: #3b82f6
+    }
+
+    .warn-box.success {
+      background: rgba(34, 197, 94, .1);
+      border-left-color: #22c55e
+    }
+
+    .warn-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      line-height: 1
+    }
+
+    .warn-box h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 6px
+    }
+
+    .warn-box p,
+    .warn-box ul {
+      font-size: 15px;
+      color: var(--fg2);
+      line-height: 1.7
+    }
+
+    .warn-box ul {
+      margin-left: 18px;
+      margin-top: 6px
+    }
+
+    .warn-box ul li {
+      margin-bottom: 4px
+    }
+
+    /* Info cards */
+    .sup-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      margin: 40px 0
+    }
+
+    .sup-card {
+      background: var(--bg2);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      transition: .3s
+    }
+
+    .sup-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .1)
+    }
+
+    .sup-card-icon {
+      font-size: 40px;
+      margin-bottom: 14px
+    }
+
+    .sup-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--fg)
+    }
+
+    .sup-card p {
+      font-size: 14px;
+      color: var(--fg2);
+      line-height: 1.6
+    }
+
+    /* Sections */
+    .sup-section {
+      margin-bottom: 56px
+    }
+
+    .sup-section h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      color: var(--fg)
+    }
+
+    .sup-section .lead {
+      font-size: 17px;
+      color: var(--fg2);
+      line-height: 1.7;
+      margin-bottom: 24px
+    }
+
+    /* Divider */
+    .sup-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 48px 0
+    }
+
+    /* Contact section */
+    .contact-section {
+      background: #000;
+      padding: 80px 8%;
+      position: relative;
+      overflow: hidden
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, .2), transparent 60%)
+    }
+
+    .contact-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1
+    }
+
+    .contact-inner h2 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1px;
+      text-align: center;
+      margin-bottom: 12px
+    }
+
+    .contact-inner>.lead {
+      font-size: 17px;
+      color: rgba(255, 255, 255, .5);
+      text-align: center;
+      margin-bottom: 48px
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      transition: .3s;
+      text-decoration: none;
+      display: block
+    }
+
+    .contact-card:hover {
+      background: rgba(99, 102, 241, .15);
+      border-color: rgba(99, 102, 241, .5);
+      transform: translateY(-4px)
+    }
+
+    .contact-card-icon {
+      font-size: 36px;
+      margin-bottom: 14px
+    }
+
+    .contact-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px
+    }
+
+    .contact-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, .5);
+      margin-bottom: 12px
+    }
+
+    .contact-card span {
+      font-size: 15px;
+      font-weight: 600;
+      color: #6366f1
+    }
+
+    .hours-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, .15);
+      color: #22c55e;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 8px
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #6366f1;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 40px;
+      transition: .2s
+    }
+
+    .back-link:hover {
+      gap: 10px
+    }
+
+    @media(max-width:768px) {
+      .sup-hero {
+        padding: 100px 6% 60px
+      }
+
+      .sup-content {
+        padding: 40px 6%
+      }
+
+      .contact-section {
+        padding: 60px 6%
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== COMBINED UNIFIED NAVBAR ===== -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-inner">
+      <!-- Left: Category Menu Drawer Button & Logo -->
+      <div class="nav-left">
+        <button class="cat-menu-btn" id="catMenuBtn" aria-label="Browse Categories" title="Browse Categories">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </button>
+        <a href="index.html" class="nav-logo">SOHAN TECH</a>
+      </div>
+
+      <!-- Center: Combined Category & Main Links with Dropdowns -->
+      <div class="nav-categories">
+        <div class="cat-item" data-cat="mobiles">
+          <a href="mobiles.html"><span class="cat-icon">📱</span> PHONES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="mobiles.html">Samsung</a><a href="mobiles.html">iPhone</a>
+              <a href="mobiles.html">Xiaomi</a><a href="mobiles.html">Oppo</a>
+              <a href="mobiles.html">Vivo</a><a href="mobiles.html">Realme</a>
+              <a href="mobiles.html">OnePlus</a><a href="mobiles.html">Google</a>
+              <a href="mobiles.html">Honor</a><a href="mobiles.html">Nothing</a>
+              <a href="mobiles.html">Tecno</a><a href="mobiles.html">Infinix</a>
+              <a href="mobiles.html">Motorola</a><a href="mobiles.html">Huawei</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="laptops">
+          <a href="laptops.html"><span class="cat-icon">💻</span> LAPTOP</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="laptops.html">Apple MacBook</a><a href="laptops.html">Dell</a>
+              <a href="laptops.html">HP</a><a href="laptops.html">Lenovo</a>
+              <a href="laptops.html">Asus</a><a href="laptops.html">Acer</a>
+              <a href="laptops.html">MSI</a><a href="laptops.html">Samsung</a>
+              <a href="laptops.html">Gaming Laptop</a><a href="laptops.html">Ultrabook</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="chargers">
+          <a href="chargers.html"><span class="cat-icon">🔌</span> CHARGERS</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="chargers.html">Fast Charger</a><a href="chargers.html">Wireless Charger</a>
+              <a href="chargers.html">Car Charger</a><a href="chargers.html">Power Bank</a>
+              <a href="chargers.html">USB-C Charger</a><a href="chargers.html">Multi-Port</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="accessories">
+          <a href="accessories.html"><span class="cat-icon">🎧</span> ACCESSORIES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-3">
+              <a href="accessories.html">Earbuds</a><a href="accessories.html">Headphones</a>
+              <a href="accessories.html">Smart Watch</a><a href="accessories.html">Phone Cases</a>
+              <a href="accessories.html">Screen Protector</a><a href="accessories.html">Cables</a>
+              <a href="accessories.html">Keyboard</a><a href="accessories.html">Mouse</a>
+              <a href="accessories.html">Speaker</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="drones">
+          <a href="drones.html"><span class="cat-icon">🚁</span> DRONES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="drones.html">DJI</a><a href="drones.html">Camera Drone</a>
+              <a href="drones.html">Racing Drone</a><a href="drones.html">Mini Drone</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <a href="orders.html"><span class="cat-icon">📦</span> ORDERS</a>
+        </div>
+        <div class="cat-item">
+          <a href="support.html" style="color:var(--accent);font-weight:700"><span class="cat-icon">🎯</span>
+            SUPPORT</a>
+        </div>
+      </div>
+
+      <!-- Exact Middle Between SUPPORT and SEARCH: Admin Info Button -->
+      <div class="nav-admin-slot">
+        <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer" class="nav-admin-btn"
+          title="Admin — Sohan Ahammed">
+          <span class="admin-avatar-icon"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40"
+              alt="Sohan Ahammed" class="admin-avatar-img" /></span>
+          <span class="admin-btn-text">ADMIN INFO</span>
+        </a>
+      </div>
+
+      <!-- Right: Action Buttons -->
+      <div class="nav-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search" title="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
+        <button class="icon-btn" id="cartBtn" aria-label="Cart" title="Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+        <a href="account.html" class="icon-btn" id="userBtn" aria-label="My Account" title="My Account"
+          style="color:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle light/dark mode">
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="mobiles.html">📱 Mobiles</a>
+      <a href="laptops.html">💻 Laptops</a>
+      <a href="chargers.html">🔌 Chargers</a>
+      <a href="accessories.html">🎧 Accessories</a>
+      <a href="drones.html">🚁 Drones</a>
+      <a href="orders.html">📦 Orders</a>
+      <a href="account.html">👤 Account</a>
+      <a href="support.html" style="color:var(--accent);font-weight:600">🎯 Support</a>
+      <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer"
+        class="admin-info-mobile-link">
+        <span class="admin-avatar-icon-mobile"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40"
+            alt="Sohan" class="admin-avatar-img" /></span> Admin Info
+      </a>
+    </div>
+
+    <!-- Search overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-input-wrap">
+        <svg class="search-icon-inner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search mobiles, laptops, accessories…" autocomplete="off"
+          spellcheck="false" />
+        <span class="search-kbd" id="searchClear" style="display:none" title="Clear">✕</span>
+      </div>
+      <button id="closeSearch" aria-label="Close search">✕</button>
+    </div>
+
+    <!-- Search Results Dropdown -->
+    <div class="search-results-panel" id="searchResultsPanel">
+      <div class="srp-inner" id="searchResultsInner"></div>
+    </div>
+  </nav>
+
+  <!-- ===== FULL-SCREEN CATEGORY SIDEBAR DRAWER ===== -->
+  <div class="cat-sidebar-overlay" id="catSidebarOverlay"></div>
+  <aside class="cat-sidebar" id="catSidebar">
+    <div class="cat-sidebar-header">
+      <h3>Browse Categories</h3>
+      <button class="cat-sidebar-close" id="catSidebarClose" aria-label="Close menu">✕</button>
+    </div>
+    <div class="cat-sidebar-body">
+      <a href="mobiles.html" class="cat-sidebar-item">📱 Phones</a>
+      <a href="laptops.html" class="cat-sidebar-item">💻 Laptops</a>
+      <a href="chargers.html" class="cat-sidebar-item">🔌 Chargers</a>
+      <a href="accessories.html" class="cat-sidebar-item">🎧 Accessories</a>
+      <a href="drones.html" class="cat-sidebar-item">🚁 Drones</a>
+      <a href="orders.html" class="cat-sidebar-item">📦 Orders</a>
+      <a href="account.html" class="cat-sidebar-item">👤 Account</a>
+      <a href="support.html" class="cat-sidebar-item" style="color:var(--accent);font-weight:600">🎯 Support</a>
+      <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer"
+        class="cat-sidebar-item admin-sidebar-item">
+        <span class="admin-avatar-icon-mobile"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40"
+            alt="Sohan" class="admin-avatar-img" /></span> Admin Info
+      </a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="sup-hero">
+    <h1>Support &amp; Safety</h1>
+    <p>We're here to help. Find everything you need — from safety guidance to getting in touch with our team.</p>
+  </section>
+
+  <!-- QUICK CARDS -->
+  <div style="background:var(--bg2);padding:48px 8%">
+    <div class="sup-cards" style="max-width:900px;margin:0 auto">
+      <div class="sup-card">
+        <div class="sup-card-icon">🛡️</div>
+        <h3>Genuine Parts</h3>
+        <p>Learn how to identify and get authentic replacement parts for your devices.</p>
+      </div>
+      <div class="sup-card">
+        <div class="sup-card-icon">⚡</div>
+        <h3>Counterfeit Warning</h3>
+        <p>Stay safe — understand the risks of counterfeit adapters and batteries.</p>
+      </div>
+      <div class="sup-card">
+        <div class="sup-card-icon">🖥️</div>
+        <h3>Screen Repair</h3>
+        <p>Official advice on getting your display repaired by certified experts.</p>
+      </div>
+      <div class="sup-card">
+        <div class="sup-card-icon">🎧</div>
+        <h3>Contact Us</h3>
+        <p>Reach our expert support team by phone, email, or Facebook — anytime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="sup-content">
+
+    <a href="index.html" class="back-link">← Back to SOHAN TECH</a>
+
+    <!-- SAFETY: COUNTERFEIT PARTS -->
+    <div class="sup-section" id="safety">
+      <h2>⚠️ Beware of Counterfeit Parts</h2>
+      <p class="lead">Your safety is our highest priority. Please read this important guidance before purchasing or
+        using replacement parts for your devices.</p>
+
+      <div class="warn-box danger">
+        <div class="warn-icon">🔋</div>
+        <div>
+          <h3>Counterfeit Power Adapters &amp; Batteries</h3>
+          <p>Some counterfeit and third-party power adapters and batteries may not be designed properly and could result
+            in serious safety issues — including overheating, fire, or electric shock.</p>
+          <ul>
+            <li>Always purchase adapters and batteries from authorised retailers or directly from the manufacturer.</li>
+            <li>If you need a replacement adapter to charge your device, we recommend getting an official power adapter
+              from the original brand.</li>
+            <li>For battery replacements, visit a certified service provider who uses genuine components.</li>
+            <li>If a deal seems too good to be true, it often is — counterfeit parts are commonly sold at suspiciously
+              low prices.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <div class="warn-icon">🖥️</div>
+        <div>
+          <h3>Non-Genuine Replacement Displays</h3>
+          <p>Non-genuine replacement displays may have compromised visual quality and may fail to work correctly. This
+            includes issues with:</p>
+          <ul>
+            <li>Inaccurate colour reproduction and brightness</li>
+            <li>Touch sensitivity problems or ghost touches</li>
+            <li>Flickering screens and backlight bleed</li>
+            <li>Incompatibility with software-level display features</li>
+          </ul>
+          <p style="margin-top:10px">Screen repairs should be performed by trusted experts who use genuine, certified
+            display panels for your device model.</p>
+        </div>
+      </div>
+
+      <div class="warn-box success">
+        <div class="warn-icon">✅</div>
+        <div>
+          <h3>Our Commitment to Genuine Products</h3>
+          <p>At SOHAN TECH, every product we sell is 100% authentic and sourced directly from authorised distributors
+            and manufacturers. We do not stock, sell, or recommend counterfeit parts — your safety and satisfaction come
+            first.</p>
+        </div>
+      </div>
+
+      <div class="warn-box info">
+        <div class="warn-icon">💡</div>
+        <div>
+          <h3>How to Spot a Counterfeit</h3>
+          <ul>
+            <li><strong>Price:</strong> Genuine parts are rarely heavily discounted — extremely cheap items are often
+              fake.</li>
+            <li><strong>Packaging:</strong> Look for spelling mistakes, blurry logos, or flimsy packaging.</li>
+            <li><strong>Weight &amp; Build:</strong> Genuine adapters are heavier and feel more solid.</li>
+            <li><strong>Certification marks:</strong> Look for official certification labels (BIS, CE, etc.).</li>
+            <li><strong>Seller:</strong> Always buy from authorised dealers or brand-official stores.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sup-divider"></div>
+
+    <!-- WARRANTY & RETURNS -->
+    <div class="sup-section" id="warranty">
+      <h2>🛡️ Warranty &amp; Returns</h2>
+      <p class="lead">Every product purchased from SOHAN TECH comes with our standard protection plan.</p>
+      <div class="sup-cards">
+        <div class="sup-card">
+          <div class="sup-card-icon">📅</div>
+          <h3>1-Year Warranty</h3>
+          <p>All devices come with a full 1-year manufacturer warranty covering hardware defects.</p>
+        </div>
+        <div class="sup-card">
+          <div class="sup-card-icon">🔄</div>
+          <h3>30-Day Returns</h3>
+          <p>Unsatisfied? Return any product within 30 days of purchase — no questions asked.</p>
+        </div>
+        <div class="sup-card">
+          <div class="sup-card-icon">🔧</div>
+          <h3>Free Repair Service</h3>
+          <p>Defective products within the warranty period get repaired free of charge.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sup-divider"></div>
+
+    <!-- FAQ -->
+    <div class="sup-section" id="faq">
+      <h2>❓ Frequently Asked Questions</h2>
+      <p class="lead">Quick answers to common questions.</p>
+      <div class="warn-box info" style="flex-direction:column;gap:12px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div class="warn-icon">📦</div>
+          <div>
+            <h3>How do I track my order?</h3>
+            <p>Once your order ships, you'll receive an SMS and email with a tracking link. You can also contact us
+              directly for updates.</p>
+          </div>
+        </div>
+      </div>
+      <div class="warn-box info" style="flex-direction:column;gap:12px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div class="warn-icon">🔁</div>
+          <div>
+            <h3>How do I initiate a return?</h3>
+            <p>Contact us via phone or email with your order number. Our team will arrange a pickup within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+      <div class="warn-box info" style="flex-direction:column;gap:12px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div class="warn-icon">💳</div>
+          <div>
+            <h3>What payment methods are accepted?</h3>
+            <p>We accept bKash, Nagad, Rocket, all major debit/credit cards, and cash on delivery.</p>
+          </div>
+        </div>
+      </div>
+      <div class="warn-box info" style="flex-direction:column;gap:12px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div class="warn-icon">🛡️</div>
+          <div>
+            <h3>How do I claim warranty?</h3>
+            <p>Bring your product and purchase receipt to any SOHAN TECH outlet, or contact us to arrange a pickup for
+              warranty service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <h2>Get In Touch</h2>
+      <p class="lead">Our support team is ready to help you — reach out through any channel below.</p>
+      <div class="contact-grid">
+        <a href="tel:+8801905857651" class="contact-card">
+          <div class="contact-card-icon">📞</div>
+          <h3>Call Us</h3>
+          <p>Speak directly with our support team</p>
+          <span>+880 1905-857651</span>
+          <div class="hours-badge">Sat–Thu · 9am–9pm</div>
+        </a>
+        <a href="mailto:sohanahamed884@gmail.com" class="contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <h3>Email Us</h3>
+          <p>We typically reply within 2–4 hours</p>
+          <span>sohanahamed884@gmail.com</span>
+        </a>
+        <a href="https://www.facebook.com/share/1GWk1hCGU3/" target="_blank" class="contact-card">
+          <div class="contact-card-icon">📘</div>
+          <h3>Facebook Page</h3>
+          <p>Message us on our official page</p>
+          <span>SOHAN TECH on Facebook</span>
+          <div class="hours-badge">Usually replies within 1 hour</div>
+        </a>
+        <div class="contact-card" style="cursor:default">
+          <div class="contact-card-icon">📍</div>
+          <h3>Visit Us</h3>
+          <p>Find us in Dhaka, Bangladesh</p>
+          <span>Dhaka, Bangladesh</span>
+          <div class="hours-badge">Sat–Thu · 9am–9pm</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER MINI -->
+  <footer
+    style="background:#111;padding:24px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.35)">
+    <span>© 2026 SOHAN TECH. All rights reserved.</span>
+    <a href="index.html" style="color:#6366f1;text-decoration:none;font-weight:600">← Back to Home</a>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+  <script src="api.js"></script>
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

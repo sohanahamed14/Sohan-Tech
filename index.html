@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOHAN TECH – Mobiles, Laptops, Chargers & Accessories</title>
+  <meta name="description" content="SOHAN TECH – Discover the latest mobiles, laptops, chargers and accessories. Premium tech at your fingertips." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>(function(){const t=localStorage.getItem('st_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+  <!-- ===== COMBINED UNIFIED NAVBAR ===== -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-inner">
+      <!-- Left: Category Menu Drawer Button & Logo -->
+      <div class="nav-left">
+        <button class="cat-menu-btn" id="catMenuBtn" aria-label="Browse Categories" title="Browse Categories">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+        <a href="index.html" class="nav-logo">SOHAN TECH</a>
+      </div>
+
+      <!-- Center: Combined Category & Main Links with Dropdowns -->
+      <div class="nav-categories">
+        <div class="cat-item" data-cat="mobiles">
+          <a href="mobiles.html"><span class="cat-icon">📱</span> PHONES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="mobiles.html">Samsung</a><a href="mobiles.html">iPhone</a>
+              <a href="mobiles.html">Xiaomi</a><a href="mobiles.html">Oppo</a>
+              <a href="mobiles.html">Vivo</a><a href="mobiles.html">Realme</a>
+              <a href="mobiles.html">OnePlus</a><a href="mobiles.html">Google</a>
+              <a href="mobiles.html">Honor</a><a href="mobiles.html">Nothing</a>
+              <a href="mobiles.html">Tecno</a><a href="mobiles.html">Infinix</a>
+              <a href="mobiles.html">Motorola</a><a href="mobiles.html">Huawei</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="laptops">
+          <a href="laptops.html"><span class="cat-icon">💻</span> LAPTOP</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="laptops.html">Apple MacBook</a><a href="laptops.html">Dell</a>
+              <a href="laptops.html">HP</a><a href="laptops.html">Lenovo</a>
+              <a href="laptops.html">Asus</a><a href="laptops.html">Acer</a>
+              <a href="laptops.html">MSI</a><a href="laptops.html">Samsung</a>
+              <a href="laptops.html">Gaming Laptop</a><a href="laptops.html">Ultrabook</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="chargers">
+          <a href="chargers.html"><span class="cat-icon">🔌</span> CHARGERS</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="chargers.html">Fast Charger</a><a href="chargers.html">Wireless Charger</a>
+              <a href="chargers.html">Car Charger</a><a href="chargers.html">Power Bank</a>
+              <a href="chargers.html">USB-C Charger</a><a href="chargers.html">Multi-Port</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="accessories">
+          <a href="accessories.html"><span class="cat-icon">🎧</span> ACCESSORIES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-3">
+              <a href="accessories.html">Earbuds</a><a href="accessories.html">Headphones</a>
+              <a href="accessories.html">Smart Watch</a><a href="accessories.html">Phone Cases</a>
+              <a href="accessories.html">Screen Protector</a><a href="accessories.html">Cables</a>
+              <a href="accessories.html">Keyboard</a><a href="accessories.html">Mouse</a>
+              <a href="accessories.html">Speaker</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item" data-cat="drones">
+          <a href="drones.html"><span class="cat-icon">🚁</span> DRONES</a>
+          <div class="cat-dropdown">
+            <div class="cat-drop-grid cols-2">
+              <a href="drones.html">DJI</a><a href="drones.html">Camera Drone</a>
+              <a href="drones.html">Racing Drone</a><a href="drones.html">Mini Drone</a>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <a href="orders.html"><span class="cat-icon">📦</span> ORDERS</a>
+        </div>
+        <div class="cat-item">
+          <a href="support.html"><span class="cat-icon">🎯</span> SUPPORT</a>
+        </div>
+      </div>
+
+      <!-- Exact Middle Between SUPPORT and SEARCH: Admin Info Button -->
+      <div class="nav-admin-slot">
+        <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer" class="nav-admin-btn" title="Admin — Sohan Ahammed">
+          <span class="admin-avatar-icon"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40" alt="Sohan Ahammed" class="admin-avatar-img" /></span>
+          <span class="admin-btn-text">ADMIN INFO</span>
+        </a>
+      </div>
+
+      <!-- Right: Action Buttons -->
+      <div class="nav-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search" title="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="icon-btn" id="cartBtn" aria-label="Cart" title="Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+        <a href="account.html" class="icon-btn" id="userBtn" aria-label="My Account" title="My Account" style="color:inherit;text-decoration:none;display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle light/dark mode">
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="mobiles.html">📱 Mobiles</a>
+      <a href="laptops.html">💻 Laptops</a>
+      <a href="chargers.html">🔌 Chargers</a>
+      <a href="accessories.html">🎧 Accessories</a>
+      <a href="drones.html">🚁 Drones</a>
+      <a href="orders.html">📦 Orders</a>
+      <a href="account.html">👤 Account</a>
+      <a href="support.html">🎯 Support</a>
+      <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer" class="admin-info-mobile-link">
+        <span class="admin-avatar-icon-mobile"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40" alt="Sohan" class="admin-avatar-img" /></span> Admin Info
+      </a>
+    </div>
+
+    <!-- Search overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-input-wrap">
+        <svg class="search-icon-inner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search mobiles, laptops, accessories…" autocomplete="off" spellcheck="false" />
+        <span class="search-kbd" id="searchClear" style="display:none" title="Clear">✕</span>
+      </div>
+      <button id="closeSearch" aria-label="Close search">✕</button>
+    </div>
+
+    <!-- Search Results Dropdown -->
+    <div class="search-results-panel" id="searchResultsPanel">
+      <div class="srp-inner" id="searchResultsInner"></div>
+    </div>
+  </nav>
+
+  <!-- ===== FULL-SCREEN CATEGORY SIDEBAR DRAWER ===== -->
+  <div class="cat-sidebar-overlay" id="catSidebarOverlay"></div>
+  <aside class="cat-sidebar" id="catSidebar">
+    <div class="cat-sidebar-header">
+      <h3>Browse Categories</h3>
+      <button class="cat-sidebar-close" id="catSidebarClose" aria-label="Close menu">✕</button>
+    </div>
+    <div class="cat-sidebar-body">
+      <a href="mobiles.html" class="cat-sidebar-item">📱 Mobiles</a>
+      <a href="laptops.html" class="cat-sidebar-item">💻 Laptops</a>
+      <a href="chargers.html" class="cat-sidebar-item">🔌 Chargers</a>
+      <a href="accessories.html" class="cat-sidebar-item">🎧 Accessories</a>
+      <a href="drones.html" class="cat-sidebar-item">🚁 Drones</a>
+      <a href="orders.html" class="cat-sidebar-item">📦 Orders</a>
+      <a href="account.html" class="cat-sidebar-item">👤 Account</a>
+      <a href="support.html" class="cat-sidebar-item">🎯 Support</a>
+      <a href="https://sohanahammed14.vercel.app/" target="_blank" rel="noopener noreferrer" class="cat-sidebar-item admin-sidebar-item">
+        <span class="admin-avatar-icon-mobile"><img src="https://avatars.githubusercontent.com/u/260539794?v=4&s=40" alt="Sohan" class="admin-avatar-img" /></span> Admin Info
+      </a>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ===== HERO BANNER GRID ===== -->
+    <section class="hero-banner" id="hero">
+      <div class="banner-grid">
+        <!-- Main Slider -->
+        <div class="banner-main">
+          <div class="banner-slider" id="bannerSlider">
+            <div class="banner-track" id="bannerTrack">
+              <!-- Slide 1 -->
+              <div class="banner-slide" style="background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 50%,#16213e 100%)">
+                <div class="slide-content">
+                  <div class="slide-badge">🔥 MEGA SALE</div>
+                  <h2 class="slide-title">Up to <span class="slide-highlight">40% OFF</span></h2>
+                  <p class="slide-desc">Premium smartphones, laptops & accessories at unbeatable prices</p>
+                  <div class="slide-features">
+                    <span>🚚 FREE Home Delivery</span>
+                    <span>✅ 1-Year Warranty</span>
+                  </div>
+                  <a href="#mobiles" class="btn btn-primary slide-btn">Shop Now</a>
+                </div>
+                <div class="slide-visual">
+                  <img src="S26 Ultra.png" alt="Samsung Galaxy S26 Ultra" class="slide-phone-img" />
+                </div>
+              </div>
+              <!-- Slide 2 -->
+              <div class="banner-slide" style="background:linear-gradient(135deg,#1a0a2e 0%,#2d1b4e 50%,#0f3460 100%)">
+                <div class="slide-content">
+                  <div class="slide-badge" style="background:rgba(139,92,246,.3);color:#c4b5fd">⚡ NEW ARRIVAL</div>
+                  <h2 class="slide-title">Galaxy S26 <span class="slide-highlight" style="background:linear-gradient(135deg,#c084fc,#818cf8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Ultra</span></h2>
+                  <p class="slide-desc">200MP Camera · Snapdragon 8 Elite · AI-Powered</p>
+                  <div class="slide-price-tag">Starting from <strong>৳ 1,34,999</strong></div>
+                  <a href="#mobiles" class="btn btn-primary slide-btn" style="background:#8b5cf6" onclick="addToCart('m6',134999,'📱')">Buy Now</a>
+                </div>
+                <div class="slide-visual">
+                  <img src="S26 Ultra.png" alt="Galaxy S26 Ultra" class="slide-phone-img" style="filter:drop-shadow(0 0 40px rgba(139,92,246,.5))" />
+                </div>
+              </div>
+              <!-- Slide 3 -->
+              <div class="banner-slide" style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#334155 100%)">
+                <div class="slide-content">
+                  <div class="slide-badge" style="background:rgba(6,182,212,.2);color:#67e8f9">💻 PRO SERIES</div>
+                  <h2 class="slide-title">MacBook Air <span class="slide-highlight" style="background:linear-gradient(135deg,#06b6d4,#3b82f6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">M5</span></h2>
+                  <p class="slide-desc">Impossibly thin. Incredibly powerful. The future of Air.</p>
+                  <div class="slide-price-tag">Starting from <strong>৳ 1,49,999</strong></div>
+                  <a href="#laptops" class="btn btn-primary slide-btn" style="background:#0ea5e9" onclick="addToCart('l15',149999,'💻')">Buy Now</a>
+                </div>
+                <div class="slide-visual">
+                  <img src="macM5.png" alt="MacBook Air M5" class="slide-laptop-img" />
+                </div>
+              </div>
+            </div>
+            <!-- Slider Nav -->
+            <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous slide">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="slider-arrow slider-next" id="sliderNext" aria-label="Next slide">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="slider-dots" id="sliderDots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+        <!-- Side Banners -->
+        <div class="banner-side">
+          <div class="side-card side-card-top" onclick="window.location.href='laptops.html'">
+            <div class="side-card-bg" style="background:linear-gradient(135deg,#0f172a,#1e293b)"></div>
+            <div class="side-card-content">
+              <span class="side-tag">Best deals on</span>
+              <h3>Latest<br/>Macbook</h3>
+              <div class="side-badge-row">
+                <span class="side-warranty">🛡️ 1 YEAR WARRANTY</span>
+              </div>
+              <a href="laptops.html" class="side-btn">Buy Now →</a>
+            </div>
+            <div class="side-card-visual">
+              <img src="macM5.png" alt="Latest Macbook" class="side-laptop-img" />
+            </div>
+          </div>
+          <div class="side-card side-card-bottom" onclick="window.location.href='#deals'">
+            <div class="side-card-bg" style="background:linear-gradient(135deg,#422006,#78350f)"></div>
+            <div class="side-card-content">
+              <span class="side-tag" style="color:#fbbf24">Largest Tech Store</span>
+              <h3 style="font-size:20px">SOHAN TECH</h3>
+              <p class="side-offer">ENJOY UP TO <strong style="color:#fbbf24;font-size:18px">70% OFF</strong></p>
+              <a href="#deals" class="side-btn" style="background:#b45309;border-color:#b45309">Shop Deals →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRUST BADGES STRIP ===== -->
+    <section class="trust-strip">
+      <div class="trust-inner">
+        <div class="trust-item">
+          <span class="trust-icon">✅</span>
+          <span class="trust-text">100% Genuine Products</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🚚</span>
+          <span class="trust-text">Comfort Delivery</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🔄</span>
+          <span class="trust-text">7-Day Easy Returns</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">💳</span>
+          <span class="trust-text">Online Payment</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🏷️</span>
+          <span class="trust-text">Best Price BD</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEW ARRIVALS SECTION ===== -->
+    <section class="products-section new-arrivals-section" id="new-arrivals">
+      <div class="section-header">
+        <span class="section-badge">🔥 Just Landed</span>
+        <h2>New Arrivals</h2>
+        <p>The freshest tech, hot off the shelves.</p>
+      </div>
+      <div class="new-arrivals-showcase">
+        <div class="na-hero-card">
+          <div class="na-glow"></div>
+          <div class="na-image-wrap">
+            <img src="S26 Ultra.png" alt="Samsung Galaxy S26 Ultra" class="na-phone-img" />
+          </div>
+          <div class="na-info">
+            <div class="na-label">NEW ARRIVAL</div>
+            <div class="na-brand">Samsung</div>
+            <h3 class="na-name">Galaxy S26 Ultra</h3>
+            <p class="na-desc">200MP ProVisual Camera · Snapdragon 8 Elite · S Pen · 5000mAh · 45W Fast Charge</p>
+            <div class="na-stars">★★★★★ <span>(4.9)</span></div>
+            <div class="na-price-row">
+              <div class="na-price">৳ 1,29,999</div>
+              <div class="na-old-price">৳ 1,49,999</div>
+              <div class="na-discount">-13%</div>
+            </div>
+            <div class="na-actions">
+              <button class="btn btn-primary" onclick="addToCart('m6',134999,'📱')">Add to Cart</button>
+              <button class="btn btn-ghost na-wishlist" id="naWishlistBtn" onclick="toggleWishlist('m6', this)">♡ Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MOBILES SECTION ===== -->
+    <section class="products-section" id="mobiles">
+      <div class="section-header">
+        <h2>Mobiles</h2>
+        <p>The latest smartphones, curated for you.</p>
+        <a href="mobiles.html" class="see-all">See all mobiles →</a>
+      </div>
+      <div class="products-grid" id="mobileGrid"></div>
+    </section>
+
+    <!-- ===== LAPTOPS SECTION ===== -->
+    <section class="products-section alt-bg" id="laptops">
+      <div class="section-header">
+        <h2>Laptops</h2>
+        <p>Power and performance, engineered to impress.</p>
+        <a href="laptops.html" class="see-all">See all laptops →</a>
+      </div>
+      <div class="products-grid" id="laptopGrid"></div>
+    </section>
+
+    <!-- ===== CHARGERS SECTION ===== -->
+    <section class="products-section" id="chargers">
+      <div class="section-header">
+        <h2>Chargers</h2>
+        <p>Fast. Safe. Reliable.</p>
+        <a href="chargers.html" class="see-all">See all chargers →</a>
+      </div>
+      <div class="products-grid" id="chargerGrid"></div>
+    </section>
+
+    <!-- ===== ACCESSORIES SECTION ===== -->
+    <section class="products-section alt-bg" id="accessories">
+      <div class="section-header">
+        <h2>Accessories</h2>
+        <p>Complete your tech ecosystem.</p>
+        <a href="accessories.html" class="see-all">See all accessories →</a>
+      </div>
+      <div class="products-grid" id="accessoryGrid"></div>
+    </section>
+
+    <!-- ===== DRONES SECTION ===== -->
+    <section class="products-section" id="drones">
+      <div class="section-header">
+        <h2>Drones</h2>
+        <p>Capture the world from above with cutting-edge drones.</p>
+        <a href="drones.html" class="see-all">See all drones →</a>
+      </div>
+      <div class="products-grid" id="droneGrid"></div>
+    </section>
+
+    <!-- ===== WHY SOHAN TECH ===== -->
+    <section class="why-section" id="about">
+      <div class="section-header light">
+        <h2 style="color:#fff">Why SOHAN TECH?</h2>
+        <p style="color:#aaa">We go beyond just selling products.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <h3>Lightning Fast Delivery</h3>
+          <p>Get your order delivered within 24 hours across Bangladesh.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🛡️</div>
+          <h3>1-Year Warranty</h3>
+          <p>Every product comes with full manufacturer warranty and support.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💎</div>
+          <h3>100% Authentic</h3>
+          <p>We source directly from brands — no counterfeits, ever.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🔄</div>
+          <h3>Easy Returns</h3>
+          <p>30-day hassle-free return policy on all purchases.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💳</div>
+          <h3>Flexible Payment</h3>
+          <p>0% EMI, bKash, Nagad, cards and cash on delivery.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🎧</div>
+          <h3>24/7 Support</h3>
+          <p>Our expert team is always ready to help you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEALS BANNER ===== -->
+    <section class="deals-section" id="deals">
+      <div class="deals-inner">
+        <div class="deals-text">
+          <span class="deals-tag">Limited Time</span>
+          <h2>Mega Tech Sale</h2>
+          <p>Up to 40% off on selected mobiles, laptops & accessories. Grab the best deals before they're gone!</p>
+          <a href="#mobiles" class="btn btn-primary">Shop Deals</a>
+        </div>
+        <div class="deals-timer" id="dealsTimer">
+          <div class="timer-block"><span id="th">00</span><small>Hours</small></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><span id="tm">00</span><small>Mins</small></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><span id="ts">00</span><small>Secs</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section class="newsletter-section">
+      <div class="newsletter-inner">
+        <h2>Stay in the Loop</h2>
+        <p>Get exclusive deals, product launches and tech news straight to your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" id="emailInput" placeholder="Enter your email address" required />
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <p class="nl-note" id="nlNote"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-col brand-col">
+          <div class="footer-logo">SOHAN TECH</div>
+          <p class="footer-tagline">Your trusted destination for premium tech.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1GWk1hCGU3/" target="_blank" aria-label="Facebook" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="#mobiles">Smartphones</a></li>
+            <li><a href="#laptops">Laptops</a></li>
+            <li><a href="#chargers">Chargers</a></li>
+            <li><a href="#accessories">Earbuds</a></li>
+            <li><a href="#accessories">Smart Watches</a></li>
+            <li><a href="#drones">Drones</a></li>
+            <li><a href="#accessories">Phone Cases</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#why">Why Choose Us</a></li>
+            <li><a href="support.html">Our Commitment</a></li>
+            <li><a href="support.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="orders.html">Track Order</a></li>
+            <li><a href="support.html#safety">Returns &amp; Safety</a></li>
+            <li><a href="support.html">Genuine Parts Guide</a></li>
+            <li><a href="support.html#contact">Contact Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="contact-list">
+            <li>📍 Dhaka, Bangladesh</li>
+            <li>📞 <a href="tel:+8801905857651" style="color:inherit;text-decoration:none">+880 1905-857651</a></li>
+            <li>✉️ <a href="mailto:sohanahamed884@gmail.com" style="color:inherit;text-decoration:none">sohanahamed884@gmail.com</a></li>
+            <li>🔗 <a href="https://www.facebook.com/share/1GWk1hCGU3/" target="_blank" style="color:inherit;text-decoration:none">Facebook Page</a></li>
+            <li>🕐 Sat–Thu, 9am–9pm</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SOHAN TECH. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="empty-icon">🛍️</div>
+        <p>Your cart is empty</p>
+        <a href="#mobiles" class="btn btn-primary" onclick="closeCart()">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">Total: <span id="cartTotal">৳ 0</span></div>
+      <button class="btn btn-primary full-btn" onclick="openCheckout()">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ===== CHECKOUT MODAL ===== -->
+  <div class="checkout-overlay" id="checkoutOverlay" onclick="if(event.target===this)closeCheckout()">
+    <div class="checkout-modal">
+      <div class="checkout-header">
+        <h3>🛒 Checkout</h3>
+        <button class="checkout-close" onclick="closeCheckout()">×</button>
+      </div>
+      <div class="checkout-steps">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <span class="step-label" id="stepLabel">Review Order</span>
+      </div>
+      <div class="checkout-body" id="checkoutBody"></div>
+      <div class="checkout-footer">
+        <button class="btn btn-back" id="checkoutBack" onclick="prevStep()" style="display:none">← Back</button>
+        <button class="btn btn-primary" id="checkoutNext" onclick="nextStep()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+  <script src="api.js"></script>
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
