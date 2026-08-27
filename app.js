@@ -229,7 +229,7 @@ function renderCartBody() {
       : (item.emoji || '🛍️');
 
     html += `<div class="cart-item">
-      <div class="cart-item-icon" style="background:${item.bg ? item.bg.replace(/linear-gradient\([^)]+\)/,'rgba(99,102,241,.1)') : 'rgba(99,102,241,.1)'}">${iconContent}</div>
+      <div class="cart-item-icon" style="background:${item.bg ? item.bg.replace(/["'<>]/g,'') : 'rgba(99,102,241,.1)'}">${iconContent}</div>
       <div class="cart-item-info">
         ${safeBrand ? `<div class="cart-item-brand">${safeBrand}</div>` : ''}
         <div class="cart-item-name">${safeName}</div>
@@ -335,10 +335,11 @@ function validateCustomerForm() {
 function renderPaymentDetails() {
   const el = document.getElementById('paymentDetailsArea');
   if (!el) return;
+  // TODO: Replace with real merchant/personal payment account numbers if different
   const details = {
     cod: `<p>💵 Pay when your order arrives at your doorstep.</p><p style="font-size:12px;color:var(--fg2);margin-top:4px">Our delivery agent will collect the payment.</p>`,
-    bkash: `<p>Send Money to Merchant / Personal Number:</p><div class="pay-number">01712-345678</div><p style="margin-top:6px;font-size:11px;color:var(--fg2)">Use your Phone Number or Name as payment reference.</p>`,
-    nagad: `<p>Send Money to Merchant / Personal Number:</p><div class="pay-number">01812-345678</div><p style="margin-top:6px;font-size:11px;color:var(--fg2)">Use your Phone Number or Name as payment reference.</p>`,
+    bkash: `<p>Send Money to Merchant / Personal Number:</p><div class="pay-number">01905-857651</div><p style="margin-top:6px;font-size:11px;color:var(--fg2)">Use your Phone Number or Name as payment reference.</p>`,
+    nagad: `<p>Send Money to Merchant / Personal Number:</p><div class="pay-number">01905-857651</div><p style="margin-top:6px;font-size:11px;color:var(--fg2)">Use your Phone Number or Name as payment reference.</p>`,
     card: `<p>💳 Card payment will be processed securely.</p><p style="font-size:12px;color:var(--fg2);margin-top:4px">Visa, MasterCard, and Amex accepted. Secure gateway link sent on placement.</p>`
   };
   el.innerHTML = `<div class="payment-details">${details[selectedPayment] || ''}</div>`;
@@ -373,13 +374,13 @@ async function renderCheckoutStep() {
       subtotal += t;
       if (item.oldPrice) savings += (item.oldPrice - item.price) * item.qty;
       const iconEl = item.img
-        ? `<img src="${item.img}" alt="${item.name}" />`
+        ? `<img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" />`
         : (item.emoji || '🛍️');
       items += `<div class="review-item">
         <div class="review-icon">${iconEl}</div>
         <div class="review-info">
-          <div class="review-brand">${item.brand || ''}</div>
-          <div class="review-name">${item.name}</div>
+          <div class="review-brand">${escapeHtml(item.brand || '')}</div>
+          <div class="review-name">${escapeHtml(item.name)}</div>
         </div>
         <div class="review-right">
           <div class="review-price">৳ ${t.toLocaleString()}</div>
@@ -598,7 +599,7 @@ async function printOrderReceipt(orderId) {
     itemRows += `
       <tr style="border-bottom:1px solid #eee;">
         <td style="padding:10px 8px;">${i+1}</td>
-        <td style="padding:10px 8px;"><strong>${it.name}</strong><br><small style="color:#666">${it.brand || ''}</small></td>
+        <td style="padding:10px 8px;"><strong>${escapeHtml(it.name)}</strong><br><small style="color:#666">${escapeHtml(it.brand || '')}</small></td>
         <td style="padding:10px 8px;text-align:center;">${it.qty}</td>
         <td style="padding:10px 8px;text-align:right;">৳ ${it.price.toLocaleString()}</td>
         <td style="padding:10px 8px;text-align:right;">৳ ${(it.price * it.qty).toLocaleString()}</td>
@@ -643,13 +644,13 @@ async function printOrderReceipt(orderId) {
           <strong>Billed &amp; Shipped To:</strong><br>
           ${order.customer.name}<br>
           Phone: ${order.customer.phone}<br>
-          ${order.customer.email ? 'Email: ' + order.customer.email + '<br>' : ''}
-          ${order.customer.address}${order.customer.city ? ', ' + order.customer.city : ''}
+          ${escapeHtml(order.customer.email ? 'Email: ' + order.customer.email : '')}
+          ${escapeHtml(order.customer.address)}${order.customer.city ? ', ' + escapeHtml(order.customer.city) : ''}
         </div>
         <div style="text-align:right">
           <strong>Order Details:</strong><br>
-          Payment: <strong>${payNames[order.paymentMethod] || order.paymentMethod}</strong><br>
-          ${order.customer.note ? 'Note: ' + order.customer.note : ''}
+          Payment: <strong>${payNames[order.paymentMethod] || escapeHtml(order.paymentMethod)}</strong><br>
+          ${order.customer.note ? 'Note: ' + escapeHtml(order.customer.note) : ''}
         </div>
       </div>
       <table>
@@ -673,7 +674,7 @@ async function printOrderReceipt(orderId) {
         <div class="totals-row grand-total"><span>Grand Total:</span><span>৳ ${order.total.toLocaleString()}</span></div>
       </div>
       <div class="footer">
-        Thank you for purchasing with SOHAN TECH • www.sohantech.com • Support: support@sohantech.com
+        Thank you for purchasing with SOHAN TECH • sohanahamed884@gmail.com • +880 1905-857651
       </div>
       <script>
         window.onload = function() { window.print(); }
@@ -963,7 +964,7 @@ function renderSearchResults(query) {
     inner.innerHTML = `
       <div class="srp-empty">
         <div class="srp-empty-icon">🔍</div>
-        <h4>No results for <mark>${query}</mark></h4>
+        <h4>No results for <mark>${escapeHtml(query)}</mark></h4>
         <p>Try searching for mobiles, laptops, chargers or accessories.</p>
       </div>`;
     panel.classList.add('open');
@@ -994,11 +995,11 @@ function renderSearchResults(query) {
           </div>
           <div class="srp-item-body">
             <div class="srp-item-top">
-              <span class="srp-item-brand">${p.brand}</span>
-              <span class="srp-item-cat">${cat}</span>
+              <span class="srp-item-brand">${escapeHtml(p.brand)}</span>
+              <span class="srp-item-cat">${escapeHtml(cat)}</span>
             </div>
-            <div class="srp-item-name">${highlight(p.name, query)}</div>
-            <div class="srp-item-desc">${highlight(p.desc, query)}</div>
+            <div class="srp-item-name">${highlight(escapeHtml(p.name), query)}</div>
+            <div class="srp-item-desc">${highlight(escapeHtml(p.desc), query)}</div>
           </div>
           <div class="srp-item-right">
             ${oldPrice}
@@ -1310,6 +1311,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loadCart();
+
+  // Initialize wishlist button state for New Arrivals
+  const naWishlistBtn = document.getElementById('naWishlistBtn');
+  if (naWishlistBtn) {
+    const wishlist = getWishlist();
+    if (wishlist.some(w => w.id === 'm6')) {
+      naWishlistBtn.textContent = '❤️ In Wishlist';
+      naWishlistBtn.classList.add('active');
+    }
+  }
 });
 
 

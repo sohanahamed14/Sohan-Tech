@@ -1,1 +1,7 @@
 .vercel
+.DS_Store
+**/.DS_Store
+localhost.session.sql
+*.session.sql
+.env
+.env.local

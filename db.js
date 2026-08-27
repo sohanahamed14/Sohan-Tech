@@ -66,6 +66,7 @@ function openDB() {
 // ===== GENERIC HELPERS =====
 // Fixed: Removed `new Promise(async ...)` anti-pattern — now proper async functions
 function getStore(storeName, mode = 'readonly') {
+  if (!db) throw new Error('IndexedDB not initialized — call openDB() first');
   const tx = db.transaction(storeName, mode);
   return tx.objectStore(storeName);
 }
@@ -173,10 +174,8 @@ async function dbAddToCart(productId, name, price, emoji = '🛍️', qty = 1) {
     await dbPut('cart', cartItem);
   }
 
-  // Persist to MySQL database in background
-  if (typeof API !== 'undefined') {
-    API.addToCart(cartItem, qty).catch(err => console.warn('MySQL cart sync notice:', err.message));
-  }
+  // Note: API sync is handled by the caller (addToCart in app.js) to avoid double-syncing
+  // Only persist locally here
 
   return cartItem;
 }
@@ -332,7 +331,8 @@ async function dbGetOrders(forcePhone = '') {
       
       const queryOptions = {};
       if (user?.role === 'admin') {
-        queryOptions.all = 1;
+        // Admin: fetch all orders — don't filter by phone
+        // API.getOrders with empty queryOptions returns all
       } else if (phone) {
         queryOptions.phone = phone;
       }

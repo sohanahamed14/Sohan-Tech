@@ -2,6 +2,10 @@
 // SOHAN TECH — Frontend API Client (Supabase Backend)
 // Online mode — no XAMPP/PHP needed
 // ==========================================================
+// SECURITY NOTE: This anon key is public by design (Supabase's model).
+// Row Level Security (RLS) MUST be enabled on all tables in Supabase
+// to prevent unauthorized data access. See backend/supabase_rls.sql.
+// ==========================================================
 
 const SUPABASE_URL = 'https://jcbuqexnysxahbfwaciu.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjYnVxZXhueXN4YWhiZndhY2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MTI5MzgsImV4cCI6MjEwMzI4ODkzOH0.oFP4j1xjCXFyw6szYyzdBDpqLJNIFtXw4jAGdbbGX7c';
@@ -51,9 +55,12 @@ const API = (function () {
     },
 
     // --- Password hashing (SHA-256 via Web Crypto) ---
+    // SECURITY NOTE: For production, migrate to server-side hashing
+    // (bcrypt/argon2) via a Supabase Edge Function.
     async _hashPassword(password) {
       const encoder = new TextEncoder();
-      const data = encoder.encode(password + '_sohantech_salt_2026');
+      const salt = 'ST_' + password.length + '_sohantech_v2_' + (password.charCodeAt(0) || 0);
+      const data = encoder.encode(password + salt);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
       return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
     },
@@ -61,7 +68,7 @@ const API = (function () {
     // --- AUTH (Direct Database — no email confirmation needed) ---
     async register(name, email, phone, password, address = '', city = 'Dhaka') {
       // Check if email already exists
-      const { data: existing } = await _supabase.from('users').select('id').eq('email', email).limit(1);
+      const { data: existing } = await _supabase.from('users').select('id').eq('email', email.toLowerCase().trim()).limit(1);
       if (existing && existing.length > 0) throw new Error('An account with this email already exists.');
 
       // Check if phone already exists
@@ -99,13 +106,14 @@ const API = (function () {
       const hashedPw = await this._hashPassword(password);
 
       // Try email first, then phone
+      const USER_FIELDS = 'id,name,email,phone,role,city,address';
       let query;
       if (identifier.includes('@')) {
-        query = _supabase.from('users').select('*').eq('email', identifier).eq('password', hashedPw).limit(1);
+        query = _supabase.from('users').select(USER_FIELDS + ',password').eq('email', identifier.toLowerCase().trim()).eq('password', hashedPw).limit(1);
       } else {
-        // Phone number login
+        // Phone number login — use safe .eq() instead of .or() template to prevent filter injection
         const cleanPhone = identifier.replace(/[^0-9+]/g, '');
-        query = _supabase.from('users').select('*').or(`phone.eq.${identifier},phone.eq.${cleanPhone}`).eq('password', hashedPw).limit(1);
+        query = _supabase.from('users').select(USER_FIELDS + ',password').eq('phone', cleanPhone).eq('password', hashedPw).limit(1);
       }
 
       const { data: rows, error } = await query;
@@ -146,7 +154,7 @@ const API = (function () {
       if (!sessions || sessions.length === 0) throw new Error('Session expired');
 
       const { data: rows } = await _supabase.from('users')
-        .select('*').eq('id', sessions[0].user_id).limit(1);
+        .select('id,name,email,phone,role,city,address').eq('id', sessions[0].user_id).limit(1);
       if (!rows || rows.length === 0) throw new Error('User not found');
 
       const row = rows[0];
@@ -158,7 +166,11 @@ const API = (function () {
     async updateProfile(updates) {
       const user = getUser();
       if (!user) throw new Error('Not logged in');
-      const { data, error } = await _supabase.from('users').update(updates).eq('id', user.id).select();
+      // Never allow password/role update through this endpoint
+      const safeUpdates = { ...updates };
+      delete safeUpdates.password;
+      delete safeUpdates.role;
+      const { data, error } = await _supabase.from('users').update(safeUpdates).eq('id', user.id).select('id,name,email,phone,role,city,address');
       if (error) throw new Error(error.message);
       const row = data[0];
       const updatedUser = { id: row.id, name: row.name, email: row.email, phone: row.phone, role: row.role, city: row.city, address: row.address };
@@ -167,7 +179,7 @@ const API = (function () {
     },
 
     async getUsers(query = '') {
-      let q = _supabase.from('users').select('id,name,email,phone,role,city,created_at');
+      let q = _supabase.from('users').select('id,name,email,phone,role,city,address,created_at');
       if (query) q = q.or(`name.ilike.%${query}%,email.ilike.%${query}%,phone.ilike.%${query}%`);
       const { data, error } = await q.limit(50);
       if (error) throw new Error(error.message);
@@ -197,8 +209,10 @@ const API = (function () {
           .update({ qty: existing[0].qty + qty, updated_at: new Date().toISOString() })
           .eq('id', existing[0].id);
       } else {
+        const userId = getUser()?.id || null;
         await _supabase.from('cart_items').insert({
           session_id: sessionId,
+          user_id: userId,
           product_id: product.id,
           name: product.name,
           brand: product.brand || '',
@@ -241,8 +255,10 @@ const API = (function () {
         await _supabase.from('cart_items').delete().eq('session_id', sessionId);
       }
       if (items && items.length > 0) {
+        const userId = getUser()?.id || null;
         const rows = items.map(i => ({
           session_id: sessionId,
+          user_id: userId,
           product_id: i.id,
           name: i.name,
           brand: i.brand || '',

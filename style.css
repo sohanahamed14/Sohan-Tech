@@ -83,7 +83,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);overflo
 .nav-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .icon-btn{background:none;border:none;cursor:pointer;color:var(--fg2);padding:8px;border-radius:8px;transition:var(--trans);position:relative}
 .icon-btn:hover{background:rgba(0,0,0,.06);color:var(--fg)}
-.cart-badge{position:absolute;top:2px;right:2px;background:var(--accent);color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;display:none}
+.cart-badge{position:absolute;top:2px;right:2px;background:var(--accent);color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:16px;height:16px;display:none;align-items:center;justify-content:center}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
 .hamburger span{display:block;width:20px;height:2px;background:var(--fg);border-radius:2px;transition:var(--trans)}
 @media(max-width:1120px){.hamburger{display:flex}}
@@ -358,11 +358,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);overflo
 .scroll-top.visible{opacity:1;visibility:visible}
 .scroll-top:hover{background:var(--accent2);transform:translateY(-3px)}
 
-/* ===== PHONE FLOAT ANIMATION ===== */
-@keyframes phoneFloat{
-  0%,100%{transform:translateY(0) rotate(-2deg)}
-  50%{transform:translateY(-18px) rotate(2deg)}
-}
+/* phoneFloat animation defined above — single source of truth */
 
 /* ===== NEW ARRIVALS SECTION ===== */
 .new-arrivals-section{background:var(--bg);padding:80px 6%;position:relative;overflow:hidden;transition:background .4s ease}
@@ -612,6 +608,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);overflo
 .success-items-list{border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);padding:8px 0;margin:10px 0}
 .success-item-line{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;color:var(--fg)}
 
+/* Copy Order ID Button */
+.copy-id-btn{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border-color);background:var(--card-bg);color:var(--fg);transition:var(--trans);display:inline-flex;align-items:center;gap:4px;font-family:inherit}
+.copy-id-btn:hover{border-color:var(--accent);background:var(--bg2);color:var(--accent)}
+
 /* Modal footer */
 .checkout-footer{padding:16px 24px;border-top:1px solid var(--border-color);display:flex;gap:10px}
 .checkout-footer .btn{flex:1;justify-content:center}
@@ -678,23 +678,4 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);overflo
   100% { transform: rotate(360deg); }
 }
 
-.btn-receipt {
-  background: var(--bg2);
-  border: 1px solid var(--border-color);
-  color: var(--fg);
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--trans);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: inherit;
-}
-.btn-receipt:hover {
-  background: var(--card-bg);
-  border-color: var(--accent);
-  color: var(--accent);
-}
+/* btn-receipt styles defined above (lines ~606-607) — single source of truth */
