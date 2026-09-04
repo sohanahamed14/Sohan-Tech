@@ -8,98 +8,98 @@ function escapeHtml(str) {
 // ===== DATA =====
 const PRODUCTS = {
   mobiles: [
-    { id: 'm1', brand: 'Samsung', name: 'Galaxy Z Fold 6', desc: '7.6" Dynamic AMOLED 2X · Armor Aluminum · Snapdragon 8 Gen 4 · 12GB RAM', price: 219999, old: 239999, badge: 'Hot', emoji: '📱', bg: 'linear-gradient(135deg,#0f2027,#203a43)', rating: 4.8, reviews: 1102 },
-    { id: 'm2', brand: 'Apple', name: 'iPhone 17 Pro Max', desc: 'A19 Pro · 48MP Tetraprism · Titanium · ProMotion 120Hz · Apple AI', price: 199999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#2c2c2c,#1a1a1a)', rating: 4.9, reviews: 4120 },
-    { id: 'm3', brand: 'Apple', name: 'iPhone 17 Pro', desc: 'A19 Pro · 48MP Fusion Camera · ProMotion · Ceramic Shield · Apple AI', price: 174999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#3a3a3a,#1c1c1c)', rating: 4.9, reviews: 3450 },
-    { id: 'm4', brand: 'Apple', name: 'iPhone 16 Pro Max', desc: 'A18 Pro Bionic · 48MP Pro Camera System · Titanium · Action Button', price: 169999, old: 179999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#434343,#000000)', rating: 4.9, reviews: 5120 },
-    { id: 'm5', brand: 'Apple', name: 'iPhone 17', desc: 'A19 Chip · 48MP Camera · Dynamic Island · USB-C · Aluminum Design', price: 139999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#b0bec5,#78909c)', rating: 4.8, reviews: 2890 },
-    { id: 'm6', brand: 'Samsung', name: 'Galaxy S26 Ultra', desc: '200MP ProVisual Camera · Snapdragon 8 Elite · S Pen · AI Galaxy Features', price: 134999, old: 149999, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#0d0d2b,#1a1a4e)', rating: 4.9, reviews: 6230 },
-    { id: 'm7', brand: 'Apple', name: 'iPhone 16', desc: 'A18 Chip · 48MP · Dynamic Island · USB-C · Action Button', price: 129999, old: 139999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.8, reviews: 3980 },
-    { id: 'm8', brand: 'Google', name: 'Pixel 9 Pro XL', desc: 'Gemini Nano Built-in · Advanced AI Night Sight · Tensor G4 Chip', price: 119999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#E0EAFC,#CFDEF3)', rating: 4.7, reviews: 1205 },
-    { id: 'm9', brand: 'Samsung', name: 'Galaxy S25 Ultra', desc: '200MP Camera · AI Features · Snapdragon 8 Gen 4 · Titanium Frame', price: 109999, old: 129999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', rating: 4.8, reviews: 2341 },
-    { id: 'm10', brand: 'Xiaomi', name: '15 Ultra', desc: '1" Leica Summilux Quad Camera · Snapdragon 8 Elite · 120W HyperCharge', price: 99999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#ff4e50,#f9d423)', rating: 4.8, reviews: 1540 },
-    { id: 'm11', brand: 'Vivo', name: 'X200 Pro', desc: '50MP Zeiss Telephoto · 6000mAh · 90W FlashCharge · Dimensity 9400', price: 89999, old: 94999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#1CB5E0,#000851)', rating: 4.6, reviews: 845 },
-    { id: 'm12', brand: 'OPPO', name: 'Find X8 Pro', desc: 'Hasselblad Quad Camera · MediaTek Dimensity 9400 · 80W SuperVOOC', price: 79999, old: 89999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#a8ff78,#78ffd6)', rating: 4.6, reviews: 720 },
-    { id: 'm13', brand: 'Xiaomi', name: '15', desc: 'Leica Optics · Snapdragon 8 Elite · 90W HyperCharge · 6.36" LTPO AMOLED', price: 69999, old: 74999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#c33764,#1d2671)', rating: 4.7, reviews: 1230 },
-    { id: 'm14', brand: 'Realme', name: 'GT 7 Pro', desc: 'Sony IMX890 · 6.78" 144Hz AMOLED · 5500mAh Massive Battery', price: 54999, old: null, badge: 'Hot', emoji: '📱', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.5, reviews: 678 },
-    { id: 'm15', brand: 'OnePlus', name: '13R 5G', desc: 'Hasselblad Camera · Snapdragon 8s Gen 3 · 100W SuperVOOC', price: 49999, old: 54999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.7, reviews: 934 },
-    { id: 'm16', brand: 'Samsung', name: 'Galaxy A56 5G', desc: '50MP OIS · IP67 · 6.7" SuperAMOLED 120Hz · Exynos 1580 · 5000mAh', price: 44999, old: 49999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.6, reviews: 2450 },
-    { id: 'm17', brand: 'iQOO', name: 'Z10 Turbo Pro', desc: 'Dimensity 9300 · 144Hz AMOLED · 6000mAh · 80W FlashCharge · OIS Camera', price: 39999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#e44d26,#f16529)', rating: 4.6, reviews: 1890 },
-    { id: 'm18', brand: 'Xiaomi', name: 'Redmi Note 14 Pro', desc: '108MP OIS · 120Hz AMOLED · 5000mAh · 67W Turbo Charge', price: 32999, old: null, badge: 'New', emoji: '📱', bg: 'linear-gradient(135deg,#ff6b6b,#ee0979)', rating: 4.6, reviews: 1876 },
-    { id: 'm19', brand: 'Poco', name: 'X7 Pro 5G', desc: 'Dimensity 8400 Ultra · 120Hz Flow AMOLED · 6000mAh · 90W Turbo', price: 29999, old: 34999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.5, reviews: 3450 },
-    { id: 'm20', brand: 'Realme', name: 'C75 5G', desc: '50MP AI Camera · 6.72" 90Hz · 5000mAh · IP69 Rating · ArmorShell', price: 14999, old: 16999, badge: 'Sale', emoji: '📱', bg: 'linear-gradient(135deg,#43cea2,#185a9d)', rating: 4.3, reviews: 5670 },
-    { id: 'm21', brand: 'Tecno', name: 'Spark 30 Pro', desc: '108MP Triple Camera · 6.78" 120Hz · 5000mAh · 33W Fast Charge', price: 13999, old: null, badge: 'Hot', emoji: '📱', bg: 'linear-gradient(135deg,#0575E6,#021B79)', rating: 4.2, reviews: 2340 },
+    { id: 'm1', brand: 'Samsung', name: 'Galaxy Z Fold 6', desc: '7.6" Dynamic AMOLED 2X · Armor Aluminum · Snapdragon 8 Gen 4 · 12GB RAM', price: 219999, old: 239999, badge: 'Hot', emoji: '📱', img: 'images/mobiles/m1.jpg', bg: 'linear-gradient(135deg,#0f2027,#203a43)', rating: 4.8, reviews: 1102 },
+    { id: 'm2', brand: 'Apple', name: 'iPhone 17 Pro Max', desc: 'A19 Pro · 48MP Tetraprism · Cosmic Orange · Titanium · ProMotion 120Hz', price: 199999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m2.jpg', bg: 'linear-gradient(135deg,#2c2c2c,#1a1a1a)', rating: 4.9, reviews: 4120 },
+    { id: 'm3', brand: 'Apple', name: 'iPhone 17 Pro', desc: 'A19 Pro · 48MP Fusion Camera · ProMotion · Ceramic Shield · Apple AI', price: 174999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m3.jpg', bg: 'linear-gradient(135deg,#3a3a3a,#1c1c1c)', rating: 4.9, reviews: 3450 },
+    { id: 'm4', brand: 'Apple', name: 'iPhone 16 Pro Max', desc: 'A18 Pro Bionic · 48MP Pro Camera System · Titanium · Action Button', price: 169999, old: 179999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m4.jpg', bg: 'linear-gradient(135deg,#434343,#000000)', rating: 4.9, reviews: 5120 },
+    { id: 'm5', brand: 'Apple', name: 'iPhone 17', desc: 'A19 Chip · 48MP Camera · Dynamic Island · USB-C · Aluminum Design', price: 139999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m5.jpg', bg: 'linear-gradient(135deg,#b0bec5,#78909c)', rating: 4.8, reviews: 2890 },
+    { id: 'm6', brand: 'Samsung', name: 'Galaxy S26 Ultra', desc: '200MP ProVisual Camera · Snapdragon 8 Elite · S Pen · AI Galaxy Features', price: 134999, old: 149999, badge: 'New', emoji: '📱', img: 'images/mobiles/m6.jpg', bg: 'linear-gradient(135deg,#0d0d2b,#1a1a4e)', rating: 4.9, reviews: 6230 },
+    { id: 'm7', brand: 'Apple', name: 'iPhone 16', desc: 'A18 Chip · 48MP · Dynamic Island · USB-C · Action Button', price: 129999, old: 139999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m7.jpg', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.8, reviews: 3980 },
+    { id: 'm8', brand: 'Google', name: 'Pixel 9 Pro XL', desc: 'Gemini Nano Built-in · Advanced AI Night Sight · Tensor G4 Chip', price: 119999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m8.jpg', bg: 'linear-gradient(135deg,#E0EAFC,#CFDEF3)', rating: 4.7, reviews: 1205 },
+    { id: 'm9', brand: 'Samsung', name: 'Galaxy S25 Ultra', desc: '200MP Camera · AI Features · Snapdragon 8 Gen 4 · Titanium Frame', price: 109999, old: 129999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m9.jpg', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', rating: 4.8, reviews: 2341 },
+    { id: 'm10', brand: 'Xiaomi', name: '15 Ultra', desc: '1" Leica Summilux Quad Camera · Snapdragon 8 Elite · 120W HyperCharge', price: 99999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m10.jpg', bg: 'linear-gradient(135deg,#ff4e50,#f9d423)', rating: 4.8, reviews: 1540 },
+    { id: 'm11', brand: 'Vivo', name: 'X200 Pro', desc: '50MP Zeiss Telephoto · 6000mAh · 90W FlashCharge · Dimensity 9400', price: 89999, old: 94999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m11.jpg', bg: 'linear-gradient(135deg,#1CB5E0,#000851)', rating: 4.6, reviews: 845 },
+    { id: 'm12', brand: 'OPPO', name: 'Find X8 Pro', desc: 'Hasselblad Quad Camera · MediaTek Dimensity 9400 · 80W SuperVOOC', price: 79999, old: 89999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m12.jpg', bg: 'linear-gradient(135deg,#a8ff78,#78ffd6)', rating: 4.6, reviews: 720 },
+    { id: 'm13', brand: 'Xiaomi', name: '15', desc: 'Leica Optics · Snapdragon 8 Elite · 90W HyperCharge · 6.36" LTPO AMOLED', price: 69999, old: 74999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m13.jpg', bg: 'linear-gradient(135deg,#c33764,#1d2671)', rating: 4.7, reviews: 1230 },
+    { id: 'm14', brand: 'Realme', name: 'GT 7 Pro', desc: 'Sony IMX890 · 6.78" 144Hz AMOLED · 5500mAh Massive Battery', price: 54999, old: null, badge: 'Hot', emoji: '📱', img: 'images/mobiles/m14.jpg', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.5, reviews: 678 },
+    { id: 'm15', brand: 'OnePlus', name: '13R 5G', desc: 'Hasselblad Camera · Snapdragon 8s Gen 3 · 100W SuperVOOC', price: 49999, old: 54999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m15.jpg', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.7, reviews: 934 },
+    { id: 'm16', brand: 'Samsung', name: 'Galaxy A56 5G', desc: '50MP OIS · IP67 · 6.7" SuperAMOLED 120Hz · Exynos 1580 · 5000mAh', price: 44999, old: 49999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m16.jpg', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.6, reviews: 2450 },
+    { id: 'm17', brand: 'iQOO', name: 'Z10 Turbo Pro', desc: 'Dimensity 9300 · 144Hz AMOLED · 6000mAh · 80W FlashCharge · OIS Camera', price: 39999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m17.jpg', bg: 'linear-gradient(135deg,#e44d26,#f16529)', rating: 4.6, reviews: 1890 },
+    { id: 'm18', brand: 'Xiaomi', name: 'Redmi Note 14 Pro', desc: '108MP OIS · 120Hz AMOLED · 5000mAh · 67W Turbo Charge', price: 32999, old: null, badge: 'New', emoji: '📱', img: 'images/mobiles/m18.jpg', bg: 'linear-gradient(135deg,#ff6b6b,#ee0979)', rating: 4.6, reviews: 1876 },
+    { id: 'm19', brand: 'Poco', name: 'X7 Pro 5G', desc: 'Dimensity 8400 Ultra · 120Hz Flow AMOLED · 6000mAh · 90W Turbo', price: 29999, old: 34999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m19.jpg', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.5, reviews: 3450 },
+    { id: 'm20', brand: 'Realme', name: 'C75 5G', desc: '50MP AI Camera · 6.72" 90Hz · 5000mAh · IP69 Rating · ArmorShell', price: 14999, old: 16999, badge: 'Sale', emoji: '📱', img: 'images/mobiles/m20.jpg', bg: 'linear-gradient(135deg,#43cea2,#185a9d)', rating: 4.3, reviews: 5670 },
+    { id: 'm21', brand: 'Tecno', name: 'Spark 30 Pro', desc: '108MP Triple Camera · 6.78" 120Hz · 5000mAh · 33W Fast Charge', price: 13999, old: null, badge: 'Hot', emoji: '📱', img: 'images/mobiles/m21.jpg', bg: 'linear-gradient(135deg,#0575E6,#021B79)', rating: 4.2, reviews: 2340 },
   ],
   laptops: [
-    { id: 'l1', brand: 'Razer', name: 'Blade 16', desc: 'RTX 4090 16GB · Mini-LED Dual-Mode · CNC Aluminum', price: 459999, old: 489999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.8, reviews: 450 },
-    { id: 'l2', brand: 'Apple', name: 'MacBook Pro 16" M3 Max', desc: 'M3 Max 16-core · 40-core GPU · 48GB · Liquid Retina XDR', price: 420999, old: null, badge: 'New', emoji: '💻', bg: 'linear-gradient(135deg,#232526,#414345)', rating: 5.0, reviews: 1120 },
-    { id: 'l3', brand: 'MSI', name: 'Titan GT77 HX', desc: 'RTX 4090 · i9 · 64GB · 4K 144Hz', price: 379999, old: 399999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.8, reviews: 310 },
-    { id: 'l4', brand: 'Dell', name: 'Alienware m18', desc: 'RTX 4090 · i9 · 18" QHD+ 480Hz', price: 349999, old: 379999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#2980B9,#6DD5FA)', rating: 4.8, reviews: 440 },
-    { id: 'l5', brand: 'Acer', name: 'Predator Helios 18', desc: 'RTX 4080 · Mini-LED 250Hz · i9-14900HX · RGB', price: 319999, old: null, badge: 'Hot', emoji: '💻', bg: 'linear-gradient(135deg,#141e30,#243b55)', rating: 4.8, reviews: 215 },
-    { id: 'l6', brand: 'ASUS', name: 'ROG Strix G18 2026', desc: 'RTX 5080 · i9-15900HX · 32GB DDR5 · 18" 2K 300Hz', price: 289999, old: 319999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#200122,#6f0000)', rating: 4.8, reviews: 520 },
-    { id: 'l7', brand: 'MSI', name: 'Creator Z16 HX', desc: 'RTX 4070 · i9 · 16" QHD+ · Creator Pro', price: 254999, old: null, badge: 'New', emoji: '💻', bg: 'linear-gradient(135deg,#56ab2f,#a8e063)', rating: 4.7, reviews: 290 },
-    { id: 'l8', brand: 'Apple', name: 'MacBook Pro 14" M4 Pro', desc: 'M4 Pro · 24GB · 512GB · Liquid Retina XDR', price: 229999, old: 249999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.9, reviews: 2780 },
-    { id: 'l9', brand: 'ASUS', name: 'ROG Zephyrus G16', desc: 'RTX 4070 · i9-14900H · 32GB · 2K 240Hz', price: 219999, old: 249999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#0f0c29,#302b63)', rating: 4.9, reviews: 412 },
-    { id: 'l10', brand: 'ASUS', name: 'Zenbook Duo', desc: 'Dual 14" 3K OLED · Intel Core Ultra 9 · Detachable KB', price: 199999, old: null, badge: 'New', emoji: '💻', bg: 'linear-gradient(135deg,#BBD2C5,#536976)', rating: 4.9, reviews: 180 },
-    { id: 'l11', brand: 'Lenovo', name: 'Yoga Book 9i Gen 2', desc: 'Dual 13.3" 2.8K OLED · Intel Core Ultra 7 · 16GB', price: 179999, old: 199999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#4e54c8,#8f94fb)', rating: 4.7, reviews: 380 },
-    { id: 'l12', brand: 'Dell', name: 'XPS 15 OLED', desc: 'Intel i7-13700H · 16GB RAM · 512GB · OLED Touch', price: 174999, old: null, badge: 'New', emoji: '💻', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.7, reviews: 890 },
-    { id: 'l13', brand: 'HP', name: 'OMEN 16', desc: 'RTX 4070 · i7 · 16GB · 165Hz · OMEN Tempest', price: 164999, old: null, badge: 'Hot', emoji: '💻', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', rating: 4.6, reviews: 760 },
-    { id: 'l14', brand: 'HP', name: 'Spectre x360', desc: 'Touch · OLED · 360° Hinge · Intel Evo i7', price: 159999, old: null, badge: 'Hot', emoji: '💻', bg: 'linear-gradient(135deg,#667eea,#764ba2)', rating: 4.8, reviews: 734 },
-    { id: 'l15', brand: 'Apple', name: 'MacBook Air M5', desc: 'M5 Chip · 24GB · 512GB SSD · 22hr Battery · Liquid Retina', price: 149999, old: null, badge: 'New', emoji: '💻', bg: 'linear-gradient(135deg,#c9d6ff,#e2e2e2)', rating: 4.9, reviews: 4280 },
-    { id: 'l16', brand: 'Lenovo', name: 'ThinkPad X1 Carbon', desc: 'Ultra-light · 12th Gen · 14" 2K IPS · 24hr Battery', price: 149999, old: 169999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', rating: 4.6, reviews: 562 },
-    { id: 'l17', brand: 'HP', name: 'Pavilion Plus 14', desc: 'Intel Core Ultra 7 · 2.8K OLED · 16GB · 512GB SSD', price: 134999, old: 149999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#ee9ca7,#ffdde1)', rating: 4.6, reviews: 890 },
-    { id: 'l18', brand: 'Lenovo', name: 'Legion 5 Pro', desc: 'RTX 4060 · Ryzen 7 · 16" 2560x1600 165Hz', price: 134999, old: 149999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.7, reviews: 1240 },
-    { id: 'l19', brand: 'Microsoft', name: 'Surface Pro 11', desc: 'Snapdragon X Elite · OLED PixelSense · Copilot+ AI', price: 129999, old: 139999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#3A1C71,#D76D77)', rating: 4.7, reviews: 320 },
-    { id: 'l20', brand: 'Apple', name: 'MacBook Air M4', desc: 'M4 Chip · 16GB RAM · 256GB SSD · 18hr Battery', price: 124999, old: null, badge: 'New', emoji: '💻', bg: 'linear-gradient(135deg,#e0e0e0,#9e9e9e)', rating: 4.9, reviews: 3120 },
-    { id: 'l21', brand: 'Acer', name: 'Nitro V 15', desc: 'RTX 4060 · i7-14650HX · 16GB DDR5 · 165Hz · Wi-Fi 7', price: 119999, old: 134999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#000428,#004e92)', rating: 4.6, reviews: 1450 },
-    { id: 'l22', brand: 'ASUS', name: 'ZenBook 14 OLED', desc: 'Intel Evo · i7 · OLED 2.8K · Ultra-portable', price: 99999, old: 114999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.7, reviews: 980 },
-    { id: 'l23', brand: 'Lenovo', name: 'IdeaPad Slim 5', desc: 'Snapdragon X Plus · 14" 2.8K OLED · 16GB · 512GB', price: 89999, old: 99999, badge: 'Sale', emoji: '💻', bg: 'linear-gradient(135deg,#c9d6ff,#e2e2e2)', rating: 4.5, reviews: 2340 },
+    { id: 'l1', brand: 'Razer', name: 'Blade 16', desc: 'RTX 4090 16GB · Mini-LED Dual-Mode · CNC Aluminum', price: 459999, old: 489999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l1.jpg', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.8, reviews: 450 },
+    { id: 'l2', brand: 'Apple', name: 'MacBook Pro 16" M3 Max', desc: 'M3 Max 16-core · 40-core GPU · 48GB · Liquid Retina XDR', price: 420999, old: null, badge: 'New', emoji: '💻', img: 'images/laptops/l2.jpg', bg: 'linear-gradient(135deg,#232526,#414345)', rating: 5.0, reviews: 1120 },
+    { id: 'l3', brand: 'MSI', name: 'Titan GT77 HX', desc: 'RTX 4090 · i9 · 64GB · 4K 144Hz', price: 379999, old: 399999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l3.jpg', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.8, reviews: 310 },
+    { id: 'l4', brand: 'Dell', name: 'Alienware m18', desc: 'RTX 4090 · i9 · 18" QHD+ 480Hz', price: 349999, old: 379999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l4.jpg', bg: 'linear-gradient(135deg,#2980B9,#6DD5FA)', rating: 4.8, reviews: 440 },
+    { id: 'l5', brand: 'Acer', name: 'Predator Helios 18', desc: 'RTX 4080 · Mini-LED 250Hz · i9-14900HX · RGB', price: 319999, old: null, badge: 'Hot', emoji: '💻', img: 'images/laptops/l5.jpg', bg: 'linear-gradient(135deg,#141e30,#243b55)', rating: 4.8, reviews: 215 },
+    { id: 'l6', brand: 'ASUS', name: 'ROG Strix G18 2026', desc: 'RTX 5080 · i9-15900HX · 32GB DDR5 · 18" 2K 300Hz', price: 289999, old: 319999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l6.jpg', bg: 'linear-gradient(135deg,#200122,#6f0000)', rating: 4.8, reviews: 520 },
+    { id: 'l7', brand: 'MSI', name: 'Creator Z16 HX', desc: 'RTX 4070 · i9 · 16" QHD+ · Creator Pro', price: 254999, old: null, badge: 'New', emoji: '💻', img: 'images/laptops/l7.jpg', bg: 'linear-gradient(135deg,#56ab2f,#a8e063)', rating: 4.7, reviews: 290 },
+    { id: 'l8', brand: 'Apple', name: 'MacBook Pro 14" M4 Pro', desc: 'M4 Pro · 24GB · 512GB · Liquid Retina XDR', price: 229999, old: 249999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l8.jpg', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.9, reviews: 2780 },
+    { id: 'l9', brand: 'ASUS', name: 'ROG Zephyrus G16', desc: 'RTX 4070 · i9-14900H · 32GB · 2K 240Hz', price: 219999, old: 249999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l9.jpg', bg: 'linear-gradient(135deg,#0f0c29,#302b63)', rating: 4.9, reviews: 412 },
+    { id: 'l10', brand: 'ASUS', name: 'Zenbook Duo', desc: 'Dual 14" 3K OLED · Intel Core Ultra 9 · Detachable KB', price: 199999, old: null, badge: 'New', emoji: '💻', img: 'images/laptops/l10.jpg', bg: 'linear-gradient(135deg,#BBD2C5,#536976)', rating: 4.9, reviews: 180 },
+    { id: 'l11', brand: 'Lenovo', name: 'Yoga Book 9i Gen 2', desc: 'Dual 13.3" 2.8K OLED · Intel Core Ultra 7 · 16GB', price: 179999, old: 199999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l11.jpg', bg: 'linear-gradient(135deg,#4e54c8,#8f94fb)', rating: 4.7, reviews: 380 },
+    { id: 'l12', brand: 'Dell', name: 'XPS 15 OLED', desc: 'Intel i7-13700H · 16GB RAM · 512GB · OLED Touch', price: 174999, old: null, badge: 'New', emoji: '💻', img: 'images/laptops/l12.jpg', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.7, reviews: 890 },
+    { id: 'l13', brand: 'HP', name: 'OMEN 16', desc: 'RTX 4070 · i7 · 16GB · 165Hz · OMEN Tempest', price: 164999, old: null, badge: 'Hot', emoji: '💻', img: 'images/laptops/l13.jpg', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', rating: 4.6, reviews: 760 },
+    { id: 'l14', brand: 'HP', name: 'Spectre x360', desc: 'Touch · OLED · 360° Hinge · Intel Evo i7', price: 159999, old: null, badge: 'Hot', emoji: '💻', img: 'images/laptops/l14.jpg', bg: 'linear-gradient(135deg,#667eea,#764ba2)', rating: 4.8, reviews: 734 },
+    { id: 'l15', brand: 'Apple', name: 'MacBook Air M5', desc: 'M5 Chip · 24GB · 512GB SSD · 22hr Battery · Liquid Retina', price: 149999, old: null, badge: 'New', emoji: '💻', img: 'images/laptops/l15.jpg', bg: 'linear-gradient(135deg,#c9d6ff,#e2e2e2)', rating: 4.9, reviews: 4280 },
+    { id: 'l16', brand: 'Lenovo', name: 'ThinkPad X1 Carbon', desc: 'Ultra-light · 12th Gen · 14" 2K IPS · 24hr Battery', price: 149999, old: 169999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l16.jpg', bg: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', rating: 4.6, reviews: 562 },
+    { id: 'l17', brand: 'HP', name: 'Pavilion Plus 14', desc: 'Intel Core Ultra 7 · 2.8K OLED · 16GB · 512GB SSD', price: 134999, old: 149999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l17.jpg', bg: 'linear-gradient(135deg,#ee9ca7,#ffdde1)', rating: 4.6, reviews: 890 },
+    { id: 'l18', brand: 'Lenovo', name: 'Legion 5 Pro', desc: 'RTX 4060 · Ryzen 7 · 16" 2560x1600 165Hz', price: 134999, old: 149999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l18.jpg', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.7, reviews: 1240 },
+    { id: 'l19', brand: 'Microsoft', name: 'Surface Pro 11', desc: 'Snapdragon X Elite · OLED PixelSense · Copilot+ AI', price: 129999, old: 139999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l19.jpg', bg: 'linear-gradient(135deg,#3A1C71,#D76D77)', rating: 4.7, reviews: 320 },
+    { id: 'l20', brand: 'Apple', name: 'MacBook Air M4', desc: 'M4 Chip · 16GB RAM · 256GB SSD · 18hr Battery', price: 124999, old: null, badge: 'New', emoji: '💻', img: 'images/laptops/l20.jpg', bg: 'linear-gradient(135deg,#e0e0e0,#9e9e9e)', rating: 4.9, reviews: 3120 },
+    { id: 'l21', brand: 'Acer', name: 'Nitro V 15', desc: 'RTX 4060 · i7-14650HX · 16GB DDR5 · 165Hz · Wi-Fi 7', price: 119999, old: 134999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l21.jpg', bg: 'linear-gradient(135deg,#000428,#004e92)', rating: 4.6, reviews: 1450 },
+    { id: 'l22', brand: 'ASUS', name: 'ZenBook 14 OLED', desc: 'Intel Evo · i7 · OLED 2.8K · Ultra-portable', price: 99999, old: 114999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l22.jpg', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.7, reviews: 980 },
+    { id: 'l23', brand: 'Lenovo', name: 'IdeaPad Slim 5', desc: 'Snapdragon X Plus · 14" 2.8K OLED · 16GB · 512GB', price: 89999, old: 99999, badge: 'Sale', emoji: '💻', img: 'images/laptops/l23.jpg', bg: 'linear-gradient(135deg,#c9d6ff,#e2e2e2)', rating: 4.5, reviews: 2340 },
   ],
   chargers: [
-    { id: 'c1', brand: 'UGREEN', name: 'Nexode 300W GaN Desktop', desc: '5 Ports · 300W Total · PD3.1 · Smart Display · Cooling Fan', price: 14999, old: 17999, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#0cebeb,#20e3b2)', rating: 4.8, reviews: 1120 },
-    { id: 'c2', brand: 'Belkin', name: 'BoostCharge Pro 3-in-1', desc: '15W MagSafe · Charges iPhone, Watch & AirPods Simultaneously', price: 12999, old: 14999, badge: 'Hot', emoji: '🔋', bg: 'linear-gradient(135deg,#bdc3c7,#2c3e50)', rating: 4.8, reviews: 1205 },
-    { id: 'c3', brand: 'Anker', name: 'Prime 250W Desktop', desc: '6 Ports · 250W Total · AI Smart Power Distribution · LED Display', price: 11999, old: 13999, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#ff512f,#dd2476)', rating: 4.9, reviews: 2340 },
-    { id: 'c4', brand: 'Anker', name: 'Prime 200W Desktop Charger', desc: '6 Ports · 200W Total · AI Power Distribution', price: 8999, old: 10999, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.9, reviews: 1890 },
-    { id: 'c5', brand: 'Baseus', name: '100W USB-C Car Charger', desc: 'Dual USB-C · PD 100W + 30W · LED Display · Car Fast Charge', price: 5999, old: 7499, badge: 'Sale', emoji: '🔌', bg: 'linear-gradient(135deg,#0f2027,#203a43)', rating: 4.7, reviews: 1560 },
-    { id: 'c6', brand: 'Anker', name: 'Prime 67W GaN', desc: 'Ultra-Compact · 3 Ports · ActiveShield 2.0 Temperature Control', price: 5499, old: null, badge: 'New', emoji: '🔌', bg: 'linear-gradient(135deg,#7F00FF,#E100FF)', rating: 4.7, reviews: 890 },
-    { id: 'c7', brand: 'UGREEN', name: '100W USB-C Hub Charger', desc: 'PD 100W · 4-Port Hub · Data + Power', price: 5499, old: 6499, badge: 'Sale', emoji: '🔌', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.6, reviews: 980 },
-    { id: 'c8', brand: 'Anker', name: '140W USB-C GaN Charger', desc: '3 Ports · GaN III · Compact Design', price: 4999, old: 6499, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#f59e0b,#ef4444)', rating: 4.9, reviews: 5234 },
-    { id: 'c9', brand: 'Apple', name: 'MagSafe Charger 2m', desc: '15W · USB-C to MagSafe 3 · 2m Cable', price: 4499, old: null, badge: 'New', emoji: '🔌', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.6, reviews: 4120 },
-    { id: 'c10', brand: 'Apple', name: '35W Dual USB-C Charger', desc: '35W · Dual USB-C · Compact · MFi Certified', price: 3999, old: null, badge: 'New', emoji: '🔌', bg: 'linear-gradient(135deg,#e0e0e0,#9e9e9e)', rating: 4.7, reviews: 2310 },
-    { id: 'c11', brand: 'Xiaomi', name: 'HyperCharge 120W GaN', desc: 'Single USB-C · 120W Max · PD3.1 · Foldable Plug', price: 3499, old: null, badge: 'New', emoji: '⚡', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.7, reviews: 1890 },
-    { id: 'c12', brand: 'Anker', name: 'MagGo 15W Wireless Stand', desc: 'MagSafe Compatible · 15W · Adjustable Stand', price: 3499, old: 3999, badge: 'Sale', emoji: '🔋', bg: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', rating: 4.8, reviews: 2670 },
-    { id: 'c13', brand: 'Xiaomi', name: '67W GaN Turbo Charger', desc: 'Single USB-C · GaN Tech · PD3.0 · Xiaomi/Redmi/Poco', price: 3499, old: 3999, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.6, reviews: 4560 },
-    { id: 'c14', brand: 'UGREEN', name: '65W Nexode Pro', desc: '4 Ports · Fast Charge · PD3.0', price: 3299, old: null, badge: 'New', emoji: '🔌', bg: 'linear-gradient(135deg,#10b981,#059669)', rating: 4.7, reviews: 3120 },
-    { id: 'c15', brand: 'Baseus', name: '30W MagSafe Wireless', desc: 'MagSafe · Qi2 · 15W Wireless · Stand', price: 2999, old: 3999, badge: 'Sale', emoji: '🔋', bg: 'linear-gradient(135deg,#6366f1,#8b5cf6)', rating: 4.6, reviews: 2089 },
-    { id: 'c16', brand: 'Samsung', name: '45W Super Fast Charger', desc: 'USB-C · PPS · Compatible with Galaxy Series', price: 2499, old: null, badge: 'Hot', emoji: '⚡', bg: 'linear-gradient(135deg,#06b6d4,#3b82f6)', rating: 4.8, reviews: 4567 },
-    { id: 'c17', brand: 'Baseus', name: '65W GaN Mini Charger', desc: 'Single USB-C · GaN · Ultra-compact · PD3.0', price: 1999, old: 2499, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.7, reviews: 3450 },
-    { id: 'c18', brand: 'Apple', name: '20W USB-C Power Adapter', desc: 'Official Apple Charger · Fast Charge for iPhone & iPad', price: 1999, old: 2499, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#E0EAFC,#CFDEF3)', rating: 4.9, reviews: 9876 },
-    { id: 'c19', brand: 'Samsung', name: '15W Wireless Charger Pad', desc: 'Qi2 Wireless · LED Indicator · Anti-slip Pad', price: 1999, old: null, badge: 'Hot', emoji: '🔋', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.5, reviews: 6780 },
-    { id: 'c20', brand: 'Realme', name: '33W SuperDart Charger', desc: 'USB-C · 33W VOOC · Compatible with Realme/OPPO Devices', price: 1499, old: 1799, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.5, reviews: 3890 },
-    { id: 'c21', brand: 'UGREEN', name: '25W Samsung Fast Charger', desc: '25W USB-C · AFC · Compatible Galaxy & More', price: 1499, old: 1799, badge: 'Sale', emoji: '⚡', bg: 'linear-gradient(135deg,#56ab2f,#a8e063)', rating: 4.7, reviews: 5890 },
+    { id: 'c1', brand: 'UGREEN', name: 'Nexode 300W GaN Desktop', desc: '5 Ports · 300W Total · PD3.1 · Smart Display · Cooling Fan', price: 14999, old: 17999, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c1.jpg', bg: 'linear-gradient(135deg,#0cebeb,#20e3b2)', rating: 4.8, reviews: 1120 },
+    { id: 'c2', brand: 'Belkin', name: 'BoostCharge Pro 3-in-1', desc: '15W MagSafe · Charges iPhone, Watch & AirPods Simultaneously', price: 12999, old: 14999, badge: 'Hot', emoji: '🔋', img: 'images/chargers/c2.jpg', bg: 'linear-gradient(135deg,#bdc3c7,#2c3e50)', rating: 4.8, reviews: 1205 },
+    { id: 'c3', brand: 'Anker', name: 'Prime 250W Desktop', desc: '6 Ports · 250W Total · AI Smart Power Distribution · LED Display', price: 11999, old: 13999, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c3.jpg', bg: 'linear-gradient(135deg,#ff512f,#dd2476)', rating: 4.9, reviews: 2340 },
+    { id: 'c4', brand: 'Anker', name: 'Prime 200W Desktop Charger', desc: '6 Ports · 200W Total · AI Power Distribution', price: 8999, old: 10999, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c4.jpg', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.9, reviews: 1890 },
+    { id: 'c5', brand: 'Baseus', name: '100W USB-C Car Charger', desc: 'Dual USB-C · PD 100W + 30W · LED Display · Car Fast Charge', price: 5999, old: 7499, badge: 'Sale', emoji: '🔌', img: 'images/chargers/c5.jpg', bg: 'linear-gradient(135deg,#0f2027,#203a43)', rating: 4.7, reviews: 1560 },
+    { id: 'c6', brand: 'Anker', name: 'Prime 67W GaN', desc: 'Ultra-Compact · 3 Ports · ActiveShield 2.0 Temperature Control', price: 5499, old: null, badge: 'New', emoji: '🔌', img: 'images/chargers/c6.jpg', bg: 'linear-gradient(135deg,#7F00FF,#E100FF)', rating: 4.7, reviews: 890 },
+    { id: 'c7', brand: 'UGREEN', name: '100W USB-C Hub Charger', desc: 'PD 100W · 4-Port Hub · Data + Power', price: 5499, old: 6499, badge: 'Sale', emoji: '🔌', img: 'images/chargers/c7.jpg', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.6, reviews: 980 },
+    { id: 'c8', brand: 'Anker', name: '140W USB-C GaN Charger', desc: '3 Ports · GaN III · Compact Design', price: 4999, old: 6499, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c8.jpg', bg: 'linear-gradient(135deg,#f59e0b,#ef4444)', rating: 4.9, reviews: 5234 },
+    { id: 'c9', brand: 'Apple', name: 'MagSafe Charger 2m', desc: '15W · USB-C to MagSafe 3 · 2m Cable', price: 4499, old: null, badge: 'New', emoji: '🔌', img: 'images/chargers/c9.jpg', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.6, reviews: 4120 },
+    { id: 'c10', brand: 'Apple', name: '35W Dual USB-C Charger', desc: '35W · Dual USB-C · Compact · MFi Certified', price: 3999, old: null, badge: 'New', emoji: '🔌', img: 'images/chargers/c10.jpg', bg: 'linear-gradient(135deg,#e0e0e0,#9e9e9e)', rating: 4.7, reviews: 2310 },
+    { id: 'c11', brand: 'Xiaomi', name: 'HyperCharge 120W GaN', desc: 'Single USB-C · 120W Max · PD3.1 · Foldable Plug', price: 3499, old: null, badge: 'New', emoji: '⚡', img: 'images/chargers/c11.jpg', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.7, reviews: 1890 },
+    { id: 'c12', brand: 'Anker', name: 'MagGo 15W Wireless Stand', desc: 'MagSafe Compatible · 15W · Adjustable Stand', price: 3499, old: 3999, badge: 'Sale', emoji: '🔋', img: 'images/chargers/c12.jpg', bg: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', rating: 4.8, reviews: 2670 },
+    { id: 'c13', brand: 'Xiaomi', name: '67W GaN Turbo Charger', desc: 'Single USB-C · GaN Tech · PD3.0 · Xiaomi/Redmi/Poco', price: 3499, old: 3999, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c13.jpg', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.6, reviews: 4560 },
+    { id: 'c14', brand: 'UGREEN', name: '65W Nexode Pro', desc: '4 Ports · Fast Charge · PD3.0', price: 3299, old: null, badge: 'New', emoji: '🔌', img: 'images/chargers/c14.jpg', bg: 'linear-gradient(135deg,#10b981,#059669)', rating: 4.7, reviews: 3120 },
+    { id: 'c15', brand: 'Baseus', name: '30W MagSafe Wireless', desc: 'MagSafe · Qi2 · 15W Wireless · Stand', price: 2999, old: 3999, badge: 'Sale', emoji: '🔋', img: 'images/chargers/c15.jpg', bg: 'linear-gradient(135deg,#6366f1,#8b5cf6)', rating: 4.6, reviews: 2089 },
+    { id: 'c16', brand: 'Samsung', name: '45W Super Fast Charger', desc: 'USB-C · PPS · Compatible with Galaxy Series', price: 2499, old: null, badge: 'Hot', emoji: '⚡', img: 'images/chargers/c16.jpg', bg: 'linear-gradient(135deg,#06b6d4,#3b82f6)', rating: 4.8, reviews: 4567 },
+    { id: 'c17', brand: 'Baseus', name: '65W GaN Mini Charger', desc: 'Single USB-C · GaN · Ultra-compact · PD3.0', price: 1999, old: 2499, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c17.jpg', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.7, reviews: 3450 },
+    { id: 'c18', brand: 'Apple', name: '20W USB-C Power Adapter', desc: 'Official Apple Charger · Fast Charge for iPhone & iPad', price: 1999, old: 2499, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c18.jpg', bg: 'linear-gradient(135deg,#E0EAFC,#CFDEF3)', rating: 4.9, reviews: 9876 },
+    { id: 'c19', brand: 'Samsung', name: '15W Wireless Charger Pad', desc: 'Qi2 Wireless · LED Indicator · Anti-slip Pad', price: 1999, old: null, badge: 'Hot', emoji: '🔋', img: 'images/chargers/c19.jpg', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.5, reviews: 6780 },
+    { id: 'c20', brand: 'Realme', name: '33W SuperDart Charger', desc: 'USB-C · 33W VOOC · Compatible with Realme/OPPO Devices', price: 1499, old: 1799, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c20.jpg', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.5, reviews: 3890 },
+    { id: 'c21', brand: 'UGREEN', name: '25W Samsung Fast Charger', desc: '25W USB-C · AFC · Compatible Galaxy & More', price: 1499, old: 1799, badge: 'Sale', emoji: '⚡', img: 'images/chargers/c21.jpg', bg: 'linear-gradient(135deg,#56ab2f,#a8e063)', rating: 4.7, reviews: 5890 },
   ],
   accessories: [
-    { id: 'a1', brand: 'Apple', name: 'Vision Pro 2', desc: 'M5 Chip · Micro-OLED · Spatial Computing · EyeSight · 3D Video', price: 499999, old: null, badge: 'New', emoji: '🥽', bg: 'linear-gradient(135deg,#ece9e6,#ffffff)', rating: 4.8, reviews: 890 },
-    { id: 'a2', brand: 'Apple', name: 'Apple Watch Series 10', desc: '46mm · Always-On Retina · ECG · Crash Detection', price: 49999, old: null, badge: 'New', emoji: '⌚', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.8, reviews: 9870 },
-    { id: 'a3', brand: 'Sony', name: 'WH-1000XM6', desc: 'Industry-leading ANC · 40hr Battery · Hi-Res Audio · Multi-point', price: 34999, old: 39999, badge: 'Sale', emoji: '🎧', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', rating: 4.9, reviews: 8901 },
-    { id: 'a4', brand: 'Samsung', name: 'Galaxy Ring 2', desc: 'Titanium Body · Sleep & Health Tracking · 7-Day Battery · IP68', price: 34999, old: null, badge: 'New', emoji: '💍', bg: 'linear-gradient(135deg,#c33764,#1d2671)', rating: 4.7, reviews: 1890 },
-    { id: 'a5', brand: 'Samsung', name: 'Galaxy Watch 7', desc: 'Health Tracking · BioActive Sensor · 40mm Sapphire Crystal', price: 29999, old: null, badge: 'New', emoji: '⌚', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.7, reviews: 3456 },
-    { id: 'a6', brand: 'Apple', name: 'AirPods Pro 2', desc: 'Active ANC · H2 Chip · USB-C · 30hr Total Battery', price: 29999, old: 32999, badge: 'Sale', emoji: '🎧', bg: 'linear-gradient(135deg,#e0e0e0,#9e9e9e)', rating: 4.9, reviews: 12400 },
-    { id: 'a7', brand: 'Sony', name: 'WF-1000XM5', desc: 'Truly Wireless ANC · 8hr · Hi-Res · Speak-to-Chat', price: 24999, old: 28999, badge: 'Sale', emoji: '🎵', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.8, reviews: 6230 },
-    { id: 'a8', brand: 'Apple', name: 'Apple Watch Ultra 2', desc: '49mm Titanium · Dual-frequency GPS · 36hr Battery · S9 SiP · 100m Water', price: 24999, old: null, badge: 'Hot', emoji: '⌚', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.9, reviews: 4560 },
-    { id: 'a9', brand: 'Samsung', name: 'Galaxy Buds 3 Pro', desc: 'ANC · 360° Audio · IPX7 · 30hr Total Battery', price: 19999, old: 22999, badge: 'Sale', emoji: '🎧', bg: 'linear-gradient(135deg,#2980B9,#6DD5FA)', rating: 4.6, reviews: 4560 },
-    { id: 'a10', brand: 'DJI', name: 'Osmo Mobile 6', desc: '3-Axis Gimbal · ActiveTrack 6.0 · Built-in Extension Rod', price: 16999, old: 18999, badge: 'Sale', emoji: '📹', bg: 'linear-gradient(135deg,#4CA1AF,#C4E0E5)', rating: 4.8, reviews: 2150 },
-    { id: 'a11', brand: 'Anker', name: 'PowerCore 24K', desc: '140W Two-Way Fast Charge · 24000mAh · Smart Display', price: 14999, old: null, badge: 'Hot', emoji: '🔋', bg: 'linear-gradient(135deg,#f12711,#f5af19)', rating: 4.8, reviews: 3210 },
-    { id: 'a12', brand: 'Nothing', name: 'Ear (3)', desc: 'Hi-Res ANC · ChatGPT Integration · 42dB Noise Cancellation · LHDC 5.0', price: 12999, old: 14999, badge: 'Sale', emoji: '🎧', bg: 'linear-gradient(135deg,#000000,#434343)', rating: 4.6, reviews: 3210 },
-    { id: 'a13', brand: 'Logitech', name: 'MX Keys S', desc: 'Backlit · Bluetooth · Multi-device · Smart Actions', price: 12999, old: null, badge: 'New', emoji: '⌨️', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.7, reviews: 3210 },
-    { id: 'a14', brand: 'Xiaomi', name: 'Watch S4', desc: '1.43" AMOLED · SpO2 · GPS · Bluetooth Call · 15-Day Battery · 150+ Modes', price: 12999, old: 14999, badge: 'Sale', emoji: '⌚', bg: 'linear-gradient(135deg,#c33764,#1d2671)', rating: 4.6, reviews: 3450 },
-    { id: 'a15', brand: 'Apple', name: 'AirTag (4 Pack)', desc: 'Precision Finding · Ultra Wideband · IP67 Water Resistant', price: 10999, old: 11999, badge: 'Hot', emoji: '🏷️', bg: 'linear-gradient(135deg,#d7d2cc,#304352)', rating: 4.9, reviews: 22300 },
-    { id: 'a16', brand: 'Logitech', name: 'MX Master 3S', desc: '8K DPI · Silent Clicks · Bluetooth · Ergonomic', price: 9999, old: null, badge: 'Hot', emoji: '🖱️', bg: 'linear-gradient(135deg,#56ab2f,#a8e063)', rating: 4.8, reviews: 7123 },
-    { id: 'a17', brand: 'JBL', name: 'Live Pro 2 TWS', desc: 'True ANC · 10hr · IPX5 · Smart Ambient', price: 8999, old: 12999, badge: 'Sale', emoji: '🎵', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.6, reviews: 5670 },
-    { id: 'a18', brand: 'Anker', name: 'Soundcore Q45', desc: '50mm Drivers · LDAC Hi-Res · 50hr Battery · ANC · Multi-point BT', price: 7999, old: 9999, badge: 'Sale', emoji: '🎧', bg: 'linear-gradient(135deg,#000428,#004e92)', rating: 4.7, reviews: 5670 },
-    { id: 'a19', brand: 'JBL', name: 'Clip 5 Portable Speaker', desc: 'IP67 · 12hr Battery · Carabiner · Bold Sound', price: 5999, old: 6999, badge: 'Sale', emoji: '🔊', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.6, reviews: 4320 },
-    { id: 'a20', brand: 'Xiaomi', name: 'Smart Band 9 Pro', desc: '1.74" AMOLED · SpO2 · 21-Day Battery · GPS', price: 4999, old: 5999, badge: 'Sale', emoji: '⌚', bg: 'linear-gradient(135deg,#f953c6,#b91d73)', rating: 4.5, reviews: 8920 },
-    { id: 'a21', brand: 'Xiaomi', name: 'Redmi Buds 6 Pro', desc: 'ANC 55dB · 38hr Total · LDAC · Dual Driver', price: 3999, old: 4999, badge: 'Sale', emoji: '🎵', bg: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', rating: 4.5, reviews: 7890 },
+    { id: 'a1', brand: 'Apple', name: 'Vision Pro 2', desc: 'M5 Chip · Micro-OLED · Spatial Computing · EyeSight · 3D Video', price: 499999, old: null, badge: 'New', emoji: '🥽', img: 'images/accessories/a1.jpg', bg: 'linear-gradient(135deg,#ece9e6,#ffffff)', rating: 4.8, reviews: 890 },
+    { id: 'a2', brand: 'Apple', name: 'Apple Watch Series 10', desc: '46mm · Always-On Retina · ECG · Crash Detection', price: 49999, old: null, badge: 'New', emoji: '⌚', img: 'images/accessories/a2.jpg', bg: 'linear-gradient(135deg,#b0bec5,#607d8b)', rating: 4.8, reviews: 9870 },
+    { id: 'a3', brand: 'Sony', name: 'WH-1000XM6', desc: 'Industry-leading ANC · 40hr Battery · Hi-Res Audio · Multi-point', price: 34999, old: 39999, badge: 'Sale', emoji: '🎧', img: 'images/accessories/a3.jpg', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', rating: 4.9, reviews: 8901 },
+    { id: 'a4', brand: 'Samsung', name: 'Galaxy Ring 2', desc: 'Titanium Body · Sleep & Health Tracking · 7-Day Battery · IP68', price: 34999, old: null, badge: 'New', emoji: '💍', img: 'images/accessories/a4.jpg', bg: 'linear-gradient(135deg,#c33764,#1d2671)', rating: 4.7, reviews: 1890 },
+    { id: 'a5', brand: 'Samsung', name: 'Galaxy Watch 7', desc: 'Health Tracking · BioActive Sensor · 40mm Sapphire Crystal', price: 29999, old: null, badge: 'New', emoji: '⌚', img: 'images/accessories/a5.jpg', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.7, reviews: 3456 },
+    { id: 'a6', brand: 'Apple', name: 'AirPods Pro 2', desc: 'Active ANC · H2 Chip · USB-C · 30hr Total Battery', price: 29999, old: 32999, badge: 'Sale', emoji: '🎧', img: 'images/accessories/a6.jpg', bg: 'linear-gradient(135deg,#e0e0e0,#9e9e9e)', rating: 4.9, reviews: 12400 },
+    { id: 'a7', brand: 'Sony', name: 'WF-1000XM5', desc: 'Truly Wireless ANC · 8hr · Hi-Res · Speak-to-Chat', price: 24999, old: 28999, badge: 'Sale', emoji: '🎵', img: 'images/accessories/a7.jpg', bg: 'linear-gradient(135deg,#4facfe,#00f2fe)', rating: 4.8, reviews: 6230 },
+    { id: 'a8', brand: 'Apple', name: 'Apple Watch Ultra 2', desc: '49mm Titanium · Dual-frequency GPS · 36hr Battery · S9 SiP · 100m Water', price: 24999, old: null, badge: 'Hot', emoji: '⌚', img: 'images/accessories/a8.jpg', bg: 'linear-gradient(135deg,#f7971e,#ffd200)', rating: 4.9, reviews: 4560 },
+    { id: 'a9', brand: 'Samsung', name: 'Galaxy Buds 3 Pro', desc: 'ANC · 360° Audio · IPX7 · 30hr Total Battery', price: 19999, old: 22999, badge: 'Sale', emoji: '🎧', img: 'images/accessories/a9.jpg', bg: 'linear-gradient(135deg,#2980B9,#6DD5FA)', rating: 4.6, reviews: 4560 },
+    { id: 'a10', brand: 'DJI', name: 'Osmo Mobile 6', desc: '3-Axis Gimbal · ActiveTrack 6.0 · Built-in Extension Rod', price: 16999, old: 18999, badge: 'Sale', emoji: '📹', img: 'images/accessories/a10.jpg', bg: 'linear-gradient(135deg,#4CA1AF,#C4E0E5)', rating: 4.8, reviews: 2150 },
+    { id: 'a11', brand: 'Anker', name: 'PowerCore 24K', desc: '140W Two-Way Fast Charge · 24000mAh · Smart Display', price: 14999, old: null, badge: 'Hot', emoji: '🔋', img: 'images/accessories/a11.jpg', bg: 'linear-gradient(135deg,#f12711,#f5af19)', rating: 4.8, reviews: 3210 },
+    { id: 'a12', brand: 'Nothing', name: 'Ear (3)', desc: 'Hi-Res ANC · ChatGPT Integration · 42dB Noise Cancellation · LHDC 5.0', price: 12999, old: 14999, badge: 'Sale', emoji: '🎧', img: 'images/accessories/a12.jpg', bg: 'linear-gradient(135deg,#000000,#434343)', rating: 4.6, reviews: 3210 },
+    { id: 'a13', brand: 'Logitech', name: 'MX Keys S', desc: 'Backlit · Bluetooth · Multi-device · Smart Actions', price: 12999, old: null, badge: 'New', emoji: '⌨️', img: 'images/accessories/a13.jpg', bg: 'linear-gradient(135deg,#11998e,#38ef7d)', rating: 4.7, reviews: 3210 },
+    { id: 'a14', brand: 'Xiaomi', name: 'Watch S4', desc: '1.43" AMOLED · SpO2 · GPS · Bluetooth Call · 15-Day Battery · 150+ Modes', price: 12999, old: 14999, badge: 'Sale', emoji: '⌚', img: 'images/accessories/a14.jpg', bg: 'linear-gradient(135deg,#c33764,#1d2671)', rating: 4.6, reviews: 3450 },
+    { id: 'a15', brand: 'Apple', name: 'AirTag (4 Pack)', desc: 'Precision Finding · Ultra Wideband · IP67 Water Resistant', price: 10999, old: 11999, badge: 'Hot', emoji: '🏷️', img: 'images/accessories/a15.jpg', bg: 'linear-gradient(135deg,#d7d2cc,#304352)', rating: 4.9, reviews: 22300 },
+    { id: 'a16', brand: 'Logitech', name: 'MX Master 3S', desc: '8K DPI · Silent Clicks · Bluetooth · Ergonomic', price: 9999, old: null, badge: 'Hot', emoji: '🖱️', img: 'images/accessories/a16.jpg', bg: 'linear-gradient(135deg,#56ab2f,#a8e063)', rating: 4.8, reviews: 7123 },
+    { id: 'a17', brand: 'JBL', name: 'Live Pro 2 TWS', desc: 'True ANC · 10hr · IPX5 · Smart Ambient', price: 8999, old: 12999, badge: 'Sale', emoji: '🎵', img: 'images/accessories/a17.jpg', bg: 'linear-gradient(135deg,#f7797d,#FBD786)', rating: 4.6, reviews: 5670 },
+    { id: 'a18', brand: 'Anker', name: 'Soundcore Q45', desc: '50mm Drivers · LDAC Hi-Res · 50hr Battery · ANC · Multi-point BT', price: 7999, old: 9999, badge: 'Sale', emoji: '🎧', img: 'images/accessories/a18.jpg', bg: 'linear-gradient(135deg,#000428,#004e92)', rating: 4.7, reviews: 5670 },
+    { id: 'a19', brand: 'JBL', name: 'Clip 5 Portable Speaker', desc: 'IP67 · 12hr Battery · Carabiner · Bold Sound', price: 5999, old: 6999, badge: 'Sale', emoji: '🔊', img: 'images/accessories/a19.jpg', bg: 'linear-gradient(135deg,#FC5C7D,#6A3093)', rating: 4.6, reviews: 4320 },
+    { id: 'a20', brand: 'Xiaomi', name: 'Smart Band 9 Pro', desc: '1.74" AMOLED · SpO2 · 21-Day Battery · GPS', price: 4999, old: 5999, badge: 'Sale', emoji: '⌚', img: 'images/accessories/a20.jpg', bg: 'linear-gradient(135deg,#f953c6,#b91d73)', rating: 4.5, reviews: 8920 },
+    { id: 'a21', brand: 'Xiaomi', name: 'Redmi Buds 6 Pro', desc: 'ANC 55dB · 38hr Total · LDAC · Dual Driver', price: 3999, old: 4999, badge: 'Sale', emoji: '🎵', img: 'images/accessories/a21.jpg', bg: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', rating: 4.5, reviews: 7890 },
   ],
   drones: [
     { id: 'd1', brand: 'DJI', name: 'Mavic 3 Pro', desc: 'Triple-Camera System · 4/3 CMOS Hasselblad Camera · 43-Min Flight Time · 15km O3+ HD Video', price: 249999, old: 269999, badge: 'Sale', emoji: '🚁', img: 'drone.png', bg: 'linear-gradient(135deg,#1f1c2c,#928dab)', rating: 4.9, reviews: 1240 },
@@ -815,9 +815,8 @@ function renderProducts(data, containerId) {
   el.innerHTML = data.map(p => `
     <div class="product-card" id="card-${p.id}">
       <div class="product-img">
-        <div class="prod-bg" style="position:absolute;inset:0;background:${p.bg};opacity:.12"></div>
-        ${p.badge ? `<div class="product-badge ${p.badge === 'Sale' ? 'sale' : p.badge === 'New' ? 'new' : ''}">${p.badge}</div>` : ''}
-        ${p.img ? `<img src="${p.img}" alt="${escapeHtml(p.name)}" style="max-height:90px;max-width:90px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,.25));" />` : `<div class="prod-icon" style="font-size:72px;line-height:1">${p.emoji}</div>`}
+        ${p.badge ? `<div class="product-badge ${p.badge.toLowerCase()}">${p.badge}</div>` : ''}
+        ${p.img ? `<img src="${p.img}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'prod-icon\\'>${p.emoji || '🛍️'}</div>'" />` : `<div class="prod-icon">${p.emoji || '🛍️'}</div>`}
       </div>
       <div class="product-info">
         <div class="product-brand">${escapeHtml(p.brand)}</div>
@@ -832,7 +831,7 @@ function renderProducts(data, containerId) {
             <div class="product-price">৳ ${p.price.toLocaleString()}</div>
             ${p.old ? `<div class="product-old-price">৳ ${p.old.toLocaleString()}</div>` : ''}
           </div>
-          <button class="add-btn" onclick="addToCart('${p.id}',${p.price},'${p.emoji}')" title="Add to cart">+</button>
+          <button class="add-btn" onclick="addToCart('${p.id}',${p.price},'${p.emoji || '🛍️'}')" title="Add to cart">+</button>
         </div>
       </div>
     </div>
@@ -989,8 +988,8 @@ function renderSearchResults(query) {
       html += `
         <div class="srp-item" data-cat="${cat}" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-emoji="${p.emoji}"
              onclick="handleSearchClick('${cat}','${p.id}','${p.name}',${p.price},'${p.emoji}')">
-          <div class="srp-item-icon" style="background:${p.bg};opacity:.9">
-            <span style="filter:brightness(2)">${p.emoji}</span>
+          <div class="srp-item-icon" style="background:${p.bg};opacity:.9;padding:4px;display:flex;align-items:center;justify-content:center">
+            ${p.img ? `<img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;" />` : `<span style="font-size:18px">${p.emoji}</span>`}
             ${p.badge ? `<span class="srp-item-badge ${badgeClass}">${p.badge}</span>` : ''}
           </div>
           <div class="srp-item-body">
@@ -1286,9 +1285,243 @@ function initCatSidebar() {
   });
 }
 
+// ===== LIVE RECENT PURCHASE POPUP SYSTEM =====
+const LIVE_PURCHASES = [
+  { name: 'Samsung Galaxy S26 Ultra 5G', img: 'images/mobiles/m6.jpg', city: 'Dhanmondi, Dhaka', time: '12 mins ago', id: 'm6', price: 134999 },
+  { name: 'iPhone 17 Pro Max (Cosmic Orange)', img: 'images/mobiles/m2.jpg', city: 'Gulshan, Dhaka', time: '24 mins ago', id: 'm2', price: 199999 },
+  { name: 'MacBook Air M5 24GB', img: 'images/laptops/l15.jpg', city: 'GEC Circle, Chittagong', time: '41 mins ago', id: 'l15', price: 149999 },
+  { name: 'Apple AirPods Pro 2 (USB-C)', img: 'images/accessories/a6.jpg', city: 'Sylhet Sadar', time: '18 mins ago', id: 'a6', price: 29999 },
+  { name: 'Anker Prime 250W 6-Port GaN', img: 'images/chargers/c3.jpg', city: 'Uttara, Dhaka', time: '7 mins ago', id: 'c3', price: 11999 },
+  { name: 'Apple Watch Series 10 46mm', img: 'images/accessories/a2.jpg', city: 'Banani, Dhaka', time: '32 mins ago', id: 'a2', price: 49999 },
+  { name: 'Xiaomi 15 Ultra (Leica Quad)', img: 'images/mobiles/m10.jpg', city: 'Rajshahi', time: '15 mins ago', id: 'm10', price: 99999 },
+  { name: 'DJI Mini 4 Pro 4K HDR', img: 'drone.png', city: 'Cox\'s Bazar', time: '55 mins ago', id: 'd4', price: 99999 }
+];
+
+let liveToastIndex = 0;
+let liveToastTimer = null;
+
+function initLivePurchaseToasts() {
+  let toastContainer = document.getElementById('livePurchaseToast');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'livePurchaseToast';
+    toastContainer.className = 'live-purchase-toast';
+    document.body.appendChild(toastContainer);
+  }
+
+  function showNextPurchase() {
+    if (document.hidden) return;
+    const item = LIVE_PURCHASES[liveToastIndex];
+    liveToastIndex = (liveToastIndex + 1) % LIVE_PURCHASES.length;
+
+    toastContainer.innerHTML = `
+      <div class="lpt-inner" onclick="addToCart('${item.id}', ${item.price})">
+        <div class="lpt-thumb">
+          <img src="${item.img}" alt="${escapeHtml(item.name)}" onerror="this.src='drone.png'" />
+        </div>
+        <div class="lpt-content">
+          <div class="lpt-title"><strong>Purchased</strong> – ${escapeHtml(item.name)}</div>
+          <div class="lpt-meta">
+            <span class="lpt-pulse"></span> ${escapeHtml(item.time)} · 📍 ${escapeHtml(item.city)}
+          </div>
+        </div>
+        <button class="lpt-close" onclick="event.stopPropagation(); closeLiveToast()" title="Dismiss">×</button>
+      </div>
+    `;
+    toastContainer.classList.add('visible');
+
+    setTimeout(() => {
+      toastContainer.classList.remove('visible');
+    }, 5500);
+  }
+
+  setTimeout(() => {
+    showNextPurchase();
+    liveToastTimer = setInterval(showNextPurchase, 14000);
+  }, 3500);
+}
+
+function closeLiveToast() {
+  const toastContainer = document.getElementById('livePurchaseToast');
+  if (toastContainer) toastContainer.classList.remove('visible');
+}
+
+// ===== PHONE EXCHANGE CALCULATOR SYSTEM =====
+function openExchangeModal() {
+  let modal = document.getElementById('exchangeModal');
+  if (!modal) {
+    createExchangeModal();
+    modal = document.getElementById('exchangeModal');
+  }
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeExchangeModal() {
+  const modal = document.getElementById('exchangeModal');
+  if (modal) modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function createExchangeModal() {
+  const div = document.createElement('div');
+  div.id = 'exchangeModal';
+  div.className = 'exchange-modal-overlay';
+  div.onclick = (e) => { if (e.target === div) closeExchangeModal(); };
+  div.innerHTML = `
+    <div class="exchange-modal-box">
+      <div class="exchange-modal-header">
+        <div class="exchange-modal-title">
+          <span class="em-icon">🔄</span>
+          <div>
+            <h3>Exchange & Upgrade</h3>
+            <p>Get up to 15% extra bonus on your old phone value!</p>
+          </div>
+        </div>
+        <button class="exchange-modal-close" onclick="closeExchangeModal()">×</button>
+      </div>
+      <div class="exchange-modal-body">
+        <div class="exchange-banner-preview">
+          <img src="images/banners/exchange-offer.jpg" alt="Exchange Offer Bonus" />
+        </div>
+        <div class="exchange-form-grid">
+          <div class="form-group">
+            <label>Select Your Current Brand</label>
+            <select id="exBrand" onchange="updateExchangeModels()">
+              <option value="Samsung">Samsung</option>
+              <option value="Apple">Apple iPhone</option>
+              <option value="Xiaomi">Xiaomi / Redmi</option>
+              <option value="OnePlus">OnePlus</option>
+              <option value="Vivo">Vivo / iQOO</option>
+              <option value="OPPO">OPPO / Realme</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Model & Generation</label>
+            <select id="exModel">
+              <option value="25000">Galaxy S23 / S22 Series</option>
+              <option value="45000">Galaxy S24 / Ultra Series</option>
+              <option value="18000">Galaxy A54 / A53</option>
+              <option value="12000">Galaxy A34 / Older</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Phone Condition</label>
+            <select id="exCondition">
+              <option value="1.0">Flawless (No scratches, all original)</option>
+              <option value="0.85">Good (Minor signs of normal use)</option>
+              <option value="0.70">Fair (Noticeable scratches / dent)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Accessories Available</label>
+            <div class="ex-checkboxes">
+              <label><input type="checkbox" id="exBox" checked> Original Box</label>
+              <label><input type="checkbox" id="exCharger" checked> Original Charger</label>
+            </div>
+          </div>
+        </div>
+        <div class="exchange-calc-btn-wrap">
+          <button class="btn btn-primary full-btn" onclick="calculateExchangeResult()">Calculate Trade-in Value</button>
+        </div>
+        <div class="exchange-result-box" id="exchangeResultBox" style="display:none">
+          <div class="ex-res-row">
+            <span>Base Valuation:</span>
+            <strong id="exBaseVal">৳ 0</strong>
+          </div>
+          <div class="ex-res-row ex-bonus">
+            <span>🔥 15% Exchange Bonus:</span>
+            <strong id="exBonusVal">+ ৳ 0</strong>
+          </div>
+          <div class="ex-res-total">
+            <span>Total Voucher Value:</span>
+            <span id="exTotalVal">৳ 0</span>
+          </div>
+          <div class="ex-coupon-box">
+            <p>Use code <strong id="exCouponCode">EXCHANGE15</strong> for 15% bonus credit at checkout!</p>
+            <button class="btn btn-dark" onclick="copyExchangeCoupon()">Copy Coupon Code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(div);
+}
+
+function updateExchangeModels() {
+  const brand = document.getElementById('exBrand')?.value;
+  const modelSelect = document.getElementById('exModel');
+  if (!modelSelect) return;
+  
+  if (brand === 'Apple') {
+    modelSelect.innerHTML = `
+      <option value="85000">iPhone 15 Pro / Pro Max</option>
+      <option value="65000">iPhone 15 / 15 Plus</option>
+      <option value="55000">iPhone 14 Pro / Pro Max</option>
+      <option value="42000">iPhone 14 / 13 Pro</option>
+      <option value="32000">iPhone 13 / 12 Pro</option>
+      <option value="22000">iPhone 11 / 12</option>
+    `;
+  } else if (brand === 'Samsung') {
+    modelSelect.innerHTML = `
+      <option value="55000">Galaxy S24 / Ultra Series</option>
+      <option value="35000">Galaxy S23 / Ultra Series</option>
+      <option value="25000">Galaxy S22 / S21 Series</option>
+      <option value="18000">Galaxy A54 / A55</option>
+      <option value="12000">Galaxy A34 / Older</option>
+    `;
+  } else if (brand === 'Xiaomi') {
+    modelSelect.innerHTML = `
+      <option value="35000">Xiaomi 14 / 13 Ultra</option>
+      <option value="22000">Xiaomi 13T / 12T Pro</option>
+      <option value="16000">Redmi Note 13 Pro / Pro+</option>
+      <option value="11000">Redmi Note 12 / 11 Series</option>
+    `;
+  } else if (brand === 'OnePlus') {
+    modelSelect.innerHTML = `
+      <option value="42000">OnePlus 12 / 12R</option>
+      <option value="28000">OnePlus 11 / 11R</option>
+      <option value="19000">OnePlus 10 Pro / 10T</option>
+      <option value="14000">OnePlus Nord Series</option>
+    `;
+  } else {
+    modelSelect.innerHTML = `
+      <option value="30000">Flagship Series (X90/X100, Find X6)</option>
+      <option value="20000">Upper Midrange (V30/V29, Reno 11/10)</option>
+      <option value="12000">Budget Midrange</option>
+    `;
+  }
+}
+
+function calculateExchangeResult() {
+  const basePrice = parseInt(document.getElementById('exModel')?.value || '20000', 10);
+  const conditionMult = parseFloat(document.getElementById('exCondition')?.value || '1.0');
+  const hasBox = document.getElementById('exBox')?.checked;
+  const hasCharger = document.getElementById('exCharger')?.checked;
+
+  let baseVal = Math.round(basePrice * conditionMult);
+  if (!hasBox) baseVal -= Math.round(basePrice * 0.05);
+  if (!hasCharger) baseVal -= Math.round(basePrice * 0.05);
+
+  const bonusVal = Math.round(baseVal * 0.15);
+  const totalVal = baseVal + bonusVal;
+
+  document.getElementById('exBaseVal').textContent = '৳ ' + baseVal.toLocaleString();
+  document.getElementById('exBonusVal').textContent = '+ ৳ ' + bonusVal.toLocaleString();
+  document.getElementById('exTotalVal').textContent = '৳ ' + totalVal.toLocaleString();
+  document.getElementById('exchangeResultBox').style.display = 'block';
+}
+
+function copyExchangeCoupon() {
+  navigator.clipboard.writeText('EXCHANGE15').then(() => {
+    showToast('Coupon EXCHANGE15 copied to clipboard! 📋');
+  }).catch(() => {
+    showToast('Coupon code: EXCHANGE15');
+  });
+}
+
 // Initial theme application
 applyTheme(getPreferredTheme());
-
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -1298,6 +1531,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize banner slider & category sidebar
   initBannerSlider();
   initCatSidebar();
+  initLivePurchaseToasts();
 
   // Render index products if grids exist (max 3 rows = 12 products per section)
   if (document.getElementById('mobileGrid')) {
