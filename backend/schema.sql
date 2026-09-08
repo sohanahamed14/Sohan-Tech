@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `savings`          DECIMAL(12,2) NOT NULL DEFAULT 0.00,
   `total`            DECIMAL(12,2) NOT NULL DEFAULT 0.00,
   `payment_method`   VARCHAR(50)   NOT NULL DEFAULT 'cod',
+  `status`           ENUM('pending','confirmed','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
   `created_at`       DATETIME      DEFAULT CURRENT_TIMESTAMP,
   `updated_at`       DATETIME      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX `idx_orders_order_id` (`order_id`),

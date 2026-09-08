@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS orders (
   savings          DECIMAL(12,2) NOT NULL DEFAULT 0.00,
   total            DECIMAL(12,2) NOT NULL DEFAULT 0.00,
   payment_method   VARCHAR(50)   NOT NULL DEFAULT 'cod',
+  status           VARCHAR(20)   NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','confirmed','shipped','delivered','cancelled')),
   created_at       TIMESTAMPTZ   DEFAULT NOW(),
   updated_at       TIMESTAMPTZ   DEFAULT NOW()
 );
@@ -110,3 +111,12 @@ CREATE TABLE IF NOT EXISTS newsletter_subscribers (
 );
 
 CREATE INDEX IF NOT EXISTS idx_subscribers_email ON newsletter_subscribers(email);
+
+-- ==========================================================
+-- MIGRATION: Run this on existing Supabase databases to add
+-- the status column without recreating the orders table.
+-- ==========================================================
+ALTER TABLE orders
+  ADD COLUMN IF NOT EXISTS status VARCHAR(20) NOT NULL DEFAULT 'pending'
+  CHECK (status IN ('pending','confirmed','shipped','delivered','cancelled'));
+CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);

@@ -273,6 +273,7 @@ async function dbCreateOrder(customerInfo, paymentMethod) {
     savings: cartData.savings,
     total: cartData.total,
     paymentMethod: paymentMethod || 'cod',
+    status: 'pending',
     createdAt: now,
     updatedAt: now
   };

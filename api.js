@@ -338,6 +338,7 @@ const API = (function () {
         subtotal: parseFloat(o.subtotal), shipping: parseFloat(o.shipping),
         savings: parseFloat(o.savings), total: parseFloat(o.total),
         paymentMethod: o.payment_method,
+        status: o.status || 'pending',
         createdAt: o.created_at, updatedAt: o.updated_at,
         items: [] // items loaded separately if needed
       }));
@@ -362,6 +363,7 @@ const API = (function () {
         subtotal: parseFloat(o.subtotal), shipping: parseFloat(o.shipping),
         savings: parseFloat(o.savings), total: parseFloat(o.total),
         paymentMethod: o.payment_method,
+        status: o.status || 'pending',
         createdAt: o.created_at, updatedAt: o.updated_at,
         items: (items || []).map(i => ({
           id: i.product_id, name: i.name, brand: i.brand,
@@ -371,6 +373,25 @@ const API = (function () {
       };
 
       return { success: true, data: { order } };
+    },
+
+    async updateOrder(orderId, updates = {}) {
+      // Allowed fields for update — never expose raw DB columns
+      const allowed = ['status', 'customer_note', 'payment_method'];
+      const payload = {};
+      for (const key of allowed) {
+        if (key in updates) payload[key] = updates[key];
+      }
+      if (Object.keys(payload).length === 0) throw new Error('No valid fields to update');
+
+      const { data, error } = await _supabase
+        .from('orders')
+        .update({ ...payload, updated_at: new Date().toISOString() })
+        .eq('order_id', orderId)
+        .select('order_id,status,payment_method,updated_at');
+
+      if (error) throw new Error(error.message);
+      return { success: true, data: data?.[0] || {}, message: 'Order updated' };
     },
 
     // --- NEWSLETTER (Supabase DB) ---
