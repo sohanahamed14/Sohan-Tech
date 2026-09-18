@@ -1,0 +1,21 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/accessories", "destination": "/pages/accessories.html" },
+    { "source": "/accessories.html", "destination": "/pages/accessories.html" },
+    { "source": "/account", "destination": "/pages/account.html" },
+    { "source": "/account.html", "destination": "/pages/account.html" },
+    { "source": "/chargers", "destination": "/pages/chargers.html" },
+    { "source": "/chargers.html", "destination": "/pages/chargers.html" },
+    { "source": "/drones", "destination": "/pages/drones.html" },
+    { "source": "/drones.html", "destination": "/pages/drones.html" },
+    { "source": "/laptops", "destination": "/pages/laptops.html" },
+    { "source": "/laptops.html", "destination": "/pages/laptops.html" },
+    { "source": "/mobiles", "destination": "/pages/mobiles.html" },
+    { "source": "/mobiles.html", "destination": "/pages/mobiles.html" },
+    { "source": "/orders", "destination": "/pages/orders.html" },
+    { "source": "/orders.html", "destination": "/pages/orders.html" },
+    { "source": "/support", "destination": "/pages/support.html" },
+    { "source": "/support.html", "destination": "/pages/support.html" }
+  ]
+}

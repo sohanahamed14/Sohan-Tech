@@ -1,9 +1,25 @@
-// ===== HELPERS =====
 // XSS protection — escape HTML entities in user-supplied content
 function escapeHtml(str) {
   if (typeof str !== 'string') return '';
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
+
+// Dynamic asset and page path resolver for root vs /pages/
+function getAssetPath(path) {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:') || path.startsWith('../')) return path;
+  const isSub = window.location.pathname.includes('/pages/') || 
+                (!window.location.protocol.startsWith('http') && window.location.pathname.split('/').includes('pages'));
+  return isSub ? '../' + path : path;
+}
+window.getAssetPath = getAssetPath;
+
+function getPagePath(page) {
+  const isSub = window.location.pathname.includes('/pages/') || 
+                (!window.location.protocol.startsWith('http') && window.location.pathname.split('/').includes('pages'));
+  return isSub ? page : 'pages/' + page;
+}
+window.getPagePath = getPagePath;
 
 // ===== DATA =====
 const PRODUCTS = {
@@ -225,7 +241,7 @@ function renderCartBody() {
     const safeDesc = escapeHtml(item.desc);
     const safeId = escapeHtml(item.id);
     const iconContent = item.img
-      ? `<img src="${escapeHtml(item.img)}" alt="${safeName}" />`
+      ? `<img src="${escapeHtml(getAssetPath(item.img))}" alt="${safeName}" />`
       : (item.emoji || '🛍️');
 
     html += `<div class="cart-item">
@@ -374,7 +390,7 @@ async function renderCheckoutStep() {
       subtotal += t;
       if (item.oldPrice) savings += (item.oldPrice - item.price) * item.qty;
       const iconEl = item.img
-        ? `<img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" />`
+        ? `<img src="${escapeHtml(getAssetPath(item.img))}" alt="${escapeHtml(item.name)}" />`
         : (item.emoji || '🛍️');
       items += `<div class="review-item">
         <div class="review-icon">${iconEl}</div>
@@ -547,7 +563,7 @@ async function placeOrder() {
           <div class="success-actions">
             <button class="btn-receipt" onclick="printOrderReceipt('${safeOrderId}')">🖨️ Print Invoice</button>
             <button class="btn-receipt" onclick="shareOrderReceipt('${safeOrderId}')">📤 Share Receipt</button>
-            <a href="orders.html" class="btn-receipt" style="text-decoration:none">📦 View in Orders</a>
+            <a href="${getPagePath('orders.html')}" class="btn-receipt" style="text-decoration:none">📦 View in Orders</a>
           </div>
 
           <div class="success-details">
@@ -816,7 +832,7 @@ function renderProducts(data, containerId) {
     <div class="product-card" id="card-${p.id}">
       <div class="product-img">
         ${p.badge ? `<div class="product-badge ${p.badge.toLowerCase()}">${p.badge}</div>` : ''}
-        ${p.img ? `<img src="${p.img}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'prod-icon\\'>${p.emoji || '🛍️'}</div>'" />` : `<div class="prod-icon">${p.emoji || '🛍️'}</div>`}
+        ${p.img ? `<img src="${getAssetPath(p.img)}" alt="${escapeHtml(p.name)}" class="product-thumb-img" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'prod-icon\\'>${p.emoji || '🛍️'}</div>'" />` : `<div class="prod-icon">${p.emoji || '🛍️'}</div>`}
       </div>
       <div class="product-info">
         <div class="product-brand">${escapeHtml(p.brand)}</div>
@@ -989,7 +1005,7 @@ function renderSearchResults(query) {
         <div class="srp-item" data-cat="${cat}" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-emoji="${p.emoji}"
              onclick="handleSearchClick('${cat}','${p.id}','${p.name}',${p.price},'${p.emoji}')">
           <div class="srp-item-icon" style="background:${p.bg};opacity:.9;padding:4px;display:flex;align-items:center;justify-content:center">
-            ${p.img ? `<img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;" />` : `<span style="font-size:18px">${p.emoji}</span>`}
+            ${p.img ? `<img src="${escapeHtml(getAssetPath(p.img))}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;" />` : `<span style="font-size:18px">${p.emoji}</span>`}
             ${p.badge ? `<span class="srp-item-badge ${badgeClass}">${p.badge}</span>` : ''}
           </div>
           <div class="srp-item-body">
@@ -1317,7 +1333,7 @@ function initLivePurchaseToasts() {
     toastContainer.innerHTML = `
       <div class="lpt-inner" onclick="addToCart('${item.id}', ${item.price})">
         <div class="lpt-thumb">
-          <img src="${item.img}" alt="${escapeHtml(item.name)}" onerror="this.src='images/drones/drone.png'" />
+          <img src="${getAssetPath(item.img)}" alt="${escapeHtml(item.name)}" onerror="this.src='${getAssetPath('images/drones/drone.png')}'" />
         </div>
         <div class="lpt-content">
           <div class="lpt-title"><strong>Purchased</strong> – ${escapeHtml(item.name)}</div>

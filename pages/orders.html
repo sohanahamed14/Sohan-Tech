@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/260539794?v=4&s=32" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <script>(function () { const t = localStorage.getItem('st_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
   <style>
     .orders-hero {
@@ -212,13 +212,13 @@
             <line x1="4" x2="20" y1="18" y2="18" />
           </svg>
         </button>
-        <a href="index.html" class="nav-logo">SOHAN TECH</a>
+        <a href="../index.html" class="nav-logo">SOHAN TECH</a>
       </div>
 
             <!-- Center: Combined Category & Main Links with Dropdowns -->
       <div class="nav-categories">
         <div class="cat-item" data-cat="mobiles">
-          <a href="mobiles.html"><img src="images/categories/1.svg" class="cat-svg-icon" alt="" /> PHONES</a>
+          <a href="mobiles.html"><img src="../images/categories/1.svg" class="cat-svg-icon" alt="" /> PHONES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="mobiles.html?brand=Apple">Apple iPhone</a>
@@ -237,7 +237,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="laptops">
-          <a href="laptops.html"><img src="images/categories/3.svg" class="cat-svg-icon" alt="" /> LAPTOP</a>
+          <a href="laptops.html"><img src="../images/categories/3.svg" class="cat-svg-icon" alt="" /> LAPTOP</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="laptops.html?brand=Apple">Apple MacBook</a>
@@ -254,7 +254,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="chargers">
-          <a href="chargers.html"><img src="images/categories/7.svg" class="cat-svg-icon" alt="" /> CHARGERS</a>
+          <a href="chargers.html"><img src="../images/categories/7.svg" class="cat-svg-icon" alt="" /> CHARGERS</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-2">
               <a href="chargers.html?brand=Anker">Anker GaN / Prime</a>
@@ -270,7 +270,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="accessories">
-          <a href="accessories.html"><img src="images/categories/6.svg" class="cat-svg-icon" alt="" /> ACCESSORIES</a>
+          <a href="accessories.html"><img src="../images/categories/6.svg" class="cat-svg-icon" alt="" /> ACCESSORIES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="accessories.html?brand=Apple">Apple AirPods & Watch</a>
@@ -287,7 +287,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="drones">
-          <a href="drones.html"><img src="images/categories/5.svg" class="cat-svg-icon" alt="" /> DRONES</a>
+          <a href="drones.html"><img src="../images/categories/5.svg" class="cat-svg-icon" alt="" /> DRONES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-2">
               <a href="drones.html?brand=DJI">DJI Mini / Air / Mavic</a>
@@ -479,7 +479,7 @@
       <div class="cart-empty" id="cartEmpty">
         <div class="empty-icon">🛍️</div>
         <p>Your cart is empty</p>
-        <a href="index.html" class="btn btn-primary">Start Shopping</a>
+        <a href="../index.html" class="btn btn-primary">Start Shopping</a>
       </div>
     </div>
     <div class="cart-footer" id="cartFooter" style="display:none">
@@ -515,9 +515,9 @@
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="api.js?v=2"></script>
-  <script src="db.js"></script>
-  <script src="app.js"></script>
+  <script src="../js/api.js?v=2"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/app.js"></script>
   <script>
     let allOrders = [];
     let currentFilter = 'all';
@@ -601,7 +601,7 @@
             <div class="orders-empty-icon">📦</div>
             <h3>${allOrders.length === 0 ? 'No orders placed yet' : 'No matching orders found'}</h3>
             <p>${allOrders.length === 0 ? 'When you complete a checkout, your full order history will appear here.' : 'Try searching another keyword or phone number.'}</p>
-            <a href="index.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex">Explore Products</a>
+            <a href="../index.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex">Explore Products</a>
           </div>
         `;
         return;
@@ -639,7 +639,7 @@
           const safeItemName = escapeHtml(item.name);
           const safeItemBrand = escapeHtml(item.brand);
           const iconContent = item.img
-            ? `<img src="${escapeHtml(item.img)}" alt="${safeItemName}" />`
+            ? `<img src="${escapeHtml(window.getAssetPath ? getAssetPath(item.img) : item.img)}" alt="${safeItemName}" />`
             : (item.emoji || '🛍️');
 
           itemsHtml += `

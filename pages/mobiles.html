@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/260539794?v=4&s=32" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <script>(function(){const t=localStorage.getItem('st_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
   <style>
     .page-hero{background:#000;padding:110px 8% 60px;position:relative;overflow:hidden}
@@ -42,13 +42,13 @@
         <button class="cat-menu-btn" id="catMenuBtn" aria-label="Browse Categories" title="Browse Categories">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         </button>
-        <a href="index.html" class="nav-logo">SOHAN TECH</a>
+        <a href="../index.html" class="nav-logo">SOHAN TECH</a>
       </div>
 
             <!-- Center: Combined Category & Main Links with Dropdowns -->
       <div class="nav-categories">
         <div class="cat-item" data-cat="mobiles">
-          <a href="mobiles.html"><img src="images/categories/1.svg" class="cat-svg-icon" alt="" /> PHONES</a>
+          <a href="mobiles.html"><img src="../images/categories/1.svg" class="cat-svg-icon" alt="" /> PHONES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="mobiles.html?brand=Apple">Apple iPhone</a>
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="laptops">
-          <a href="laptops.html"><img src="images/categories/3.svg" class="cat-svg-icon" alt="" /> LAPTOP</a>
+          <a href="laptops.html"><img src="../images/categories/3.svg" class="cat-svg-icon" alt="" /> LAPTOP</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="laptops.html?brand=Apple">Apple MacBook</a>
@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="chargers">
-          <a href="chargers.html"><img src="images/categories/7.svg" class="cat-svg-icon" alt="" /> CHARGERS</a>
+          <a href="chargers.html"><img src="../images/categories/7.svg" class="cat-svg-icon" alt="" /> CHARGERS</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-2">
               <a href="chargers.html?brand=Anker">Anker GaN / Prime</a>
@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="accessories">
-          <a href="accessories.html"><img src="images/categories/6.svg" class="cat-svg-icon" alt="" /> ACCESSORIES</a>
+          <a href="accessories.html"><img src="../images/categories/6.svg" class="cat-svg-icon" alt="" /> ACCESSORIES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="accessories.html?brand=Apple">Apple AirPods & Watch</a>
@@ -117,7 +117,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="drones">
-          <a href="drones.html"><img src="images/categories/5.svg" class="cat-svg-icon" alt="" /> DRONES</a>
+          <a href="drones.html"><img src="../images/categories/5.svg" class="cat-svg-icon" alt="" /> DRONES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-2">
               <a href="drones.html?brand=DJI">DJI Mini / Air / Mavic</a>
@@ -226,7 +226,7 @@
       <div class="orb orb-2"></div>
     </div>
     <div class="page-hero-content">
-      <a href="index.html" class="page-back">← Back to Home</a>
+      <a href="../index.html" class="page-back">← Back to Home</a>
       <h1>📱 All Mobiles</h1>
       <p>The latest smartphones — flagship to budget, every brand you love.</p>
     </div>
@@ -234,7 +234,7 @@
 
   <!-- CATEGORY HERO BANNER -->
   <div class="category-promo-banner">
-    <div class="cat-promo-inner" style="background-image: url('images/banners/iphone17-launch.jpg');">
+    <div class="cat-promo-inner" style="background-image: url('../images/banners/iphone17-launch.jpg');">
       <div class="cat-promo-text">
         <span class="cat-promo-tag">Flagship Series 2026</span>
         <h2>Smartphones & Exchange Deals</h2>
@@ -278,7 +278,7 @@
       <div class="cart-empty" id="cartEmpty">
         <div class="empty-icon">🛍️</div>
         <p>Your cart is empty</p>
-        <a href="index.html#mobiles" class="btn btn-primary">Start Shopping</a>
+        <a href="../index.html#mobiles" class="btn btn-primary">Start Shopping</a>
       </div>
     </div>
     <div class="cart-footer" id="cartFooter" style="display:none">
@@ -313,9 +313,9 @@
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="api.js?v=2"></script>
-  <script src="db.js"></script>
-  <script src="app.js"></script>
+  <script src="../js/api.js?v=2"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/app.js"></script>
   <script>
     const ALL_MOBILES = PRODUCTS.mobiles;
     let currentFilter = 'all';

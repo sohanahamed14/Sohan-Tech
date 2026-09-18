@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/260539794?v=4&s=32" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <script>(function () { const t = localStorage.getItem('st_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
   <style>
     /* ===== ACCOUNT PAGE STYLES ===== */
@@ -952,13 +952,13 @@
             <line x1="4" x2="20" y1="18" y2="18" />
           </svg>
         </button>
-        <a href="index.html" class="nav-logo">SOHAN TECH</a>
+        <a href="../index.html" class="nav-logo">SOHAN TECH</a>
       </div>
 
             <!-- Center: Combined Category & Main Links with Dropdowns -->
       <div class="nav-categories">
         <div class="cat-item" data-cat="mobiles">
-          <a href="mobiles.html"><img src="images/categories/1.svg" class="cat-svg-icon" alt="" /> PHONES</a>
+          <a href="mobiles.html"><img src="../images/categories/1.svg" class="cat-svg-icon" alt="" /> PHONES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="mobiles.html?brand=Apple">Apple iPhone</a>
@@ -977,7 +977,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="laptops">
-          <a href="laptops.html"><img src="images/categories/3.svg" class="cat-svg-icon" alt="" /> LAPTOP</a>
+          <a href="laptops.html"><img src="../images/categories/3.svg" class="cat-svg-icon" alt="" /> LAPTOP</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="laptops.html?brand=Apple">Apple MacBook</a>
@@ -994,7 +994,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="chargers">
-          <a href="chargers.html"><img src="images/categories/7.svg" class="cat-svg-icon" alt="" /> CHARGERS</a>
+          <a href="chargers.html"><img src="../images/categories/7.svg" class="cat-svg-icon" alt="" /> CHARGERS</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-2">
               <a href="chargers.html?brand=Anker">Anker GaN / Prime</a>
@@ -1010,7 +1010,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="accessories">
-          <a href="accessories.html"><img src="images/categories/6.svg" class="cat-svg-icon" alt="" /> ACCESSORIES</a>
+          <a href="accessories.html"><img src="../images/categories/6.svg" class="cat-svg-icon" alt="" /> ACCESSORIES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-3">
               <a href="accessories.html?brand=Apple">Apple AirPods & Watch</a>
@@ -1027,7 +1027,7 @@
           </div>
         </div>
         <div class="cat-item" data-cat="drones">
-          <a href="drones.html"><img src="images/categories/5.svg" class="cat-svg-icon" alt="" /> DRONES</a>
+          <a href="drones.html"><img src="../images/categories/5.svg" class="cat-svg-icon" alt="" /> DRONES</a>
           <div class="cat-dropdown">
             <div class="cat-drop-grid cols-2">
               <a href="drones.html?brand=DJI">DJI Mini / Air / Mavic</a>
@@ -1270,7 +1270,7 @@
             </div>
           </div>
           <div class="dash-welcome-right">
-            <a href="index.html" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.3);">🛍️ Shop
+            <a href="../index.html" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.3);">🛍️ Shop
               Tech</a>
             <button class="btn btn-dark" onclick="handleLogout()"
               style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);">Sign
@@ -1592,9 +1592,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="api.js?v=2"></script>
-  <script src="db.js"></script>
-  <script src="app.js"></script>
+  <script src="../js/api.js?v=2"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/app.js"></script>
 
   <script>
     // ===== ACCOUNT PAGE CONTROLLER =====
@@ -1853,7 +1853,7 @@
           <div style="font-size:40px;margin-bottom:12px;">📦</div>
           <p style="font-size:16px;color:var(--fg);font-weight:600">No orders yet</p>
           <p style="font-size:13px;color:var(--fg2);margin-bottom:16px;">Your orders will appear here.</p>
-          <a href="index.html" class="btn btn-primary">Start Shopping</a>
+          <a href="../index.html" class="btn btn-primary">Start Shopping</a>
         </div>`;
         return;
       }
@@ -1908,7 +1908,7 @@
         data.items.forEach(it => {
           html += `<div class="cart-item-row">
             <div class="cart-item-left">
-              <div class="cart-item-img">${it.img ? `<img src="${it.img}" alt="${it.name}">` : it.emoji}</div>
+              <div class="cart-item-img">${it.img ? `<img src="${window.getAssetPath ? getAssetPath(it.img) : it.img}" alt="${it.name}">` : it.emoji}</div>
               <div><div style="font-weight:600;font-size:14px;color:var(--fg);">${it.name}</div><div style="font-size:12px;color:var(--fg2);">৳ ${it.price.toLocaleString()} × ${it.qty}</div></div>
             </div>
             <div style="font-weight:700;color:var(--fg);">৳ ${(it.price * it.qty).toLocaleString()}</div>
@@ -2022,7 +2022,7 @@
         grid.innerHTML = `<div style="text-align:center;padding:30px;grid-column:1/-1;">
           <div style="font-size:36px;margin-bottom:10px;">❤️</div>
           <p style="color:var(--fg2)">Your wishlist is empty. Browse products and save your favorites!</p>
-          <a href="index.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex">Explore Products</a>
+          <a href="../index.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex">Explore Products</a>
         </div>`;
         return;
       }
